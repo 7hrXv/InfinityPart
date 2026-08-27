@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Infinity.Applicantion/InfinityPart.Application.csproj" />
+  <Project Path="InfinityPart.Infrastructure/InfinityPart.Infrastructure.csproj" />
+  <Project Path="InfinityPart.UI/InfinityPart.UI.csproj" />
+  <Project Path="InfinityPart/InfinityPart.Domain.csproj" />
+</Solution>
