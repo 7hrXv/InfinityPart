@@ -10,10 +10,7 @@
         public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
         public DateTime? DataAtualizacao { get; set; }
         public DateTime? DataExclusao { get; set; }
-
-
-
-
+        public string Cep { get; set; }
 
 
     }
