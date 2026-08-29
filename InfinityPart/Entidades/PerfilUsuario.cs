@@ -1,4 +1,6 @@
-﻿namespace InfinityPart.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace InfinityPart.Domain.Entities
 {
     public class PerfilUsuario : IdentityUser
     {

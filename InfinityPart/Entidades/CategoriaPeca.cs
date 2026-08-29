@@ -6,7 +6,7 @@ namespace InfinityPart.Domain.Entities
     public class Categoria
     {
         // Número de identificação único da categoria no banco de dados
-        public int Id { get; set; }
+        public ingit remote -vgit remote -vt Id { get; set; }
 
         // Nome da categoria (ex: "Processadores"). É obrigatório e aceita no máximo 100 caracteres
         [MaxLength(100, ErrorMessage = "O nome da categoria deve ter no máximo 100 caracteres.")]
