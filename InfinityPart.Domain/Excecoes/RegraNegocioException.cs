@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace InfinityPart.Domain.Excecoes
 {
-    internal class RegraNegocioException
+    public class RegraNegocioException : Exception
     {
+        public RegraNegocioException(string mensagem) : base(mensagem)
+        {
+        }
     }
 }

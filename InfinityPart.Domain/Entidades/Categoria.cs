@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace InfinityPart.Entidades;
 
-namespace InfinityPart.Domain.Entidades
+public class Categoria
 {
-    internal class Categoria
-    {
-    }
+    public int Id { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string? Descricao { get; set; }
+
+    public ICollection<Produto> Pecas { get; set; } = new List<Produto>();
 }

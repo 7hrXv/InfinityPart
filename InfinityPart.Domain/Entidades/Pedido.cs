@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InfinityPart.Domain.Entidades;
 
-namespace InfinityPart.Domain.Entidades
+namespace InfinityPart.Entidades;
+
+public class Pedido
 {
-    internal class Pedido
-    {
-    }
+    public int Id { get; set; }
+    public DateTime DataPedido { get; set; } = DateTime.UtcNow;
+    public decimal ValorTotal { get; set; }
+    public string Status { get; set; } = "Pendente"; // Pendente, Concluído, Cancelado
+
+    public int ApplicationUserId { get; set; }
+    public ApplicationUser? Usuario { get; set; }
 }

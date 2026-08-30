@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace InfinityPart.Entidades;
 
-namespace InfinityPart.Domain.Entidades
+public class Produto
 {
-    internal class Peca
-    {
-    }
+    public int Id { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string CodigoPeca { get; set; } = string.Empty; // SKU / Código do Fabricante
+    public string? Descricao { get; set; }
+    public decimal Preco { get; set; }
+    public int QuantidadeEstoque { get; set; }
+
+    // Relacionamentos
+    public int CategoriaId { get; set; }
+    public Categoria? Categoria { get; set; }
+
+    public int FabricanteId { get; set; }
+    public Fabricante? Fabricante { get; set; }
 }

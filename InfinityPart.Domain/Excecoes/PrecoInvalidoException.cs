@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace InfinityPart.Domain.Excecoes
+namespace Infinitypart.Domain.Excecoes
 {
-    internal class PrecoInvalidoException
+    public class PrecoInvalidoException : Exception
     {
+        public PrecoInvalidoException(string mensagem) : base(mensagem)
+        {
+        }
     }
 }
