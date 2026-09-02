@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using InfinityPart.Domain.Entidades;
+using System.Threading.Tasks;
+using InfinittyPart.Domain.Entidades; // Corrigido para dois 't's
 
-namespace InfinityPart.Domain.Interfaces
+namespace InfinittyPart.Domain.Interfaces // Ajustado também para o padrão do projeto (dois 't's)
 {
     // Interface para gerenciar o catálogo de peças/produtos da InfinityPart
     public interface IProdutoRepository
     {
         // Cadastra um novo produto/peça no estoque
-        void Adicionar(Produto produto);
+        Task AdicionarAsync(Produto produto);
 
         // Atualiza o preço, estoque ou detalhes de um produto
         void Atualizar(Produto produto);
@@ -26,5 +27,7 @@ namespace InfinityPart.Domain.Interfaces
 
         // Busca produtos pelo nome (útil para a barra de pesquisa do site)
         List<Produto> ObterPorNome(string nome);
+        Task<IEnumerable<object>> ListarTodosAsync();
+        Task BuscarPorIdAsync(int id);
     }
 }
