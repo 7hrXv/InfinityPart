@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace InfinittyPart.Domain.Exceptions;
 
-namespace InfinityPart.Domain.Exceptions;
-
-public class EstoqueInsuficienteException : RegraNegocioException
+public class EstoqueInsuficienteException : Exception
 {
-    public EstoqueInsuficienteException(string mensagem)
-        : base(mensagem)
+    public EstoqueInsuficienteException(string message) : base(message)
     {
     }
 }

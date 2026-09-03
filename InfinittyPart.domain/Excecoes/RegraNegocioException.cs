@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace InfinityPart.Domain.Exceptions;
+﻿namespace InfinittyPart.Domain.Exceptions;
 
 public class RegraNegocioException : Exception
 {
-    public RegraNegocioException(string mensagem)
-        : base(mensagem)
+    public RegraNegocioException(string message) : base(message)
     {
     }
 }

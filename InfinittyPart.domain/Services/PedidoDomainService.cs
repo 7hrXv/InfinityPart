@@ -1,8 +1,5 @@
 ﻿using InfinittyPart.Domain.Entidades;
-using Infinitypart.Domain.Excecoes;
-using InfinityPart.Domain.Entidades;
-using InfinityPart.Domain.Excecoes;
-using System;
+using InfinittyPart.Domain.Exceptions;
 
 namespace InfinityPart.Domain.Services
 {

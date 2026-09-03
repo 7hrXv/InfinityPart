@@ -1,6 +1,4 @@
-﻿using Infinitypart.Domain.Excecoes;
-using InfinityPart.Domain.Excecoes;
-
+﻿using InfinittyPart.Domain.Exceptions;
 
 namespace InfinityPart.Domain.ValueObjects
 {

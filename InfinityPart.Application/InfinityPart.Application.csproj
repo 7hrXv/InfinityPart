@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
+		<OutputType>Exe</OutputType>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\InfinittyPart.domain\InfinittyPart.Domain.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
+		<Folder Include="DTOs\Auth\" />
+		<Folder Include="DTOs\Pedidos\" />
 		<Folder Include="Exceptions\" />
 	</ItemGroup>
-
 </Project>

@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace InfinittyPart.Domain.Exceptions;
 
-namespace InfinityPart.Domain.Exceptions;
-
-public class PrecoInvalidoException : RegraNegocioException
+public class PrecoInvalidoException : Exception
 {
-    public PrecoInvalidoException(string mensagem)
-        : base(mensagem)
+    public PrecoInvalidoException(string message) : base(message)
     {
     }
 }
