@@ -1,7 +1,7 @@
 <Solution>
-  <Project Path="Infinity.Applicantion/InfinityPart.Application.csproj" />
+  <Project Path="InfinittyPart.domain/InfinittyPart.Domain.csproj" Id="5b8d9339-228d-4841-850f-1a9c8ebd347d" />
   <Project Path="InfinityPart.API/InfinityPart.API.csproj" Id="535907f9-fcd4-49db-86a6-738fbc9f1b03" />
-  <Project Path="InfinityPart.Domain/InfinityPart.Domain.csproj" Id="1795701d-6668-48e4-8ca9-7c7956ee13d3" />
+  <Project Path="InfinityPart.Application/InfinityPart.Application.csproj" Id="dbb51f58-fce8-46e5-ba7e-73e554af82aa" />
   <Project Path="InfinityPart.Infrastructure/InfinityPart.Infrastructure.csproj" />
   <Project Path="InfinityPart.UI/InfinityPart.UI.csproj" />
 </Solution>

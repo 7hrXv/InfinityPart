@@ -8,12 +8,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\InfinittyPart.domain\InfinittyPart.Domain.csproj" />
-		<ProjectReference Include="..\InfinityPart.Application\InfinityPart.Application.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Azure.Identity" Version="1.21.0" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
+		<Folder Include="Exceptions\" />
 	</ItemGroup>
 
 </Project>
