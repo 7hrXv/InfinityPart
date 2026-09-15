@@ -37,13 +37,10 @@ namespace InfinityPart.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public Produto ObterPorId(int id)
-        {
-            return _context.Produtos
+        public Produto ObterPorId(int id) => _context.Produtos
                 .Include(p => p.Categoria)
                 .Include(p => p.Fabricante)
                 .FirstOrDefault(p => p.Id == id);
-        }
 
         public List<Produto> ObterTodos()
         {
