@@ -10,6 +10,10 @@ public interface IProdutoService
 
     ProdutoDto? BuscarPorId(int id);
 
+    IEnumerable<ProdutoDto> BuscarPorMarcaId(int marcaId);
+
+    IEnumerable<ProdutoDto> BuscarPorNome(string nome);
+
     ProdutoDto? Atualizar(AtualizarProdutoDto dto);
 
     bool Remover(int id);

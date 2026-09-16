@@ -1,6 +1,4 @@
-﻿using InfinityPart.Domain.Entidades;
-
-namespace InfinityPart.Entidades;
+﻿namespace InfinittyPart.Domain.Entidades;
 
 public class Pedido
 {
@@ -10,10 +8,16 @@ public class Pedido
 
     public decimal ValorTotal { get; set; }
 
-    public string Status { get; set; } = "Pendente";
+    // Cliente que realizou o pedido
+    public int ClienteId { get; set; }
 
-    // Relacionamento com o usuário do ASP.NET Identity
-    public string ApplicationUserId { get; set; } = string.Empty;
+    public Cliente? Cliente { get; set; }
 
-    public ApplicationUser? Usuario { get; set; }
+    // Status atual do pedido
+    public int StatusPedidoId { get; set; }
+
+    public StatusPedido? StatusPedido { get; set; }
+
+    // Itens que fazem parte do pedido
+    public ICollection<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
 }

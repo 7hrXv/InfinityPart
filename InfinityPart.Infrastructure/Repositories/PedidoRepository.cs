@@ -1,50 +1,54 @@
-﻿using InfinityPart.Domain.Interfaces;
-using InfinityPart.Entidades;
-using Microsoft.EntityFrameworkCore;
+﻿using InfinittyPart.Domain.Entidades;
+using InfinittyPart.Domain.Interfaces;
 
-namespace InfinityPart.Infrastructure.Repositories
+namespace InfinityPart.Infrastructure.Repositories;
+
+public class PedidoRepository : IPedidoRepository
 {
-    public class PedidoRepository : IPedidoRepository
+    private readonly InfinityPartDbContext _context;
+
+    public PedidoRepository(InfinityPartDbContext context)
     {
-        private readonly InfinityPartDbContext _context;
+        _context = context;
+    }
 
-        public PedidoRepository(InfinityPartDbContext context)
-        {
-            _context = context;
-        }
+    public void Adicionar(Pedido pedido)
+    {
+        _context.Pedidos.Add(pedido);
+        _context.SaveChanges();
+    }
 
-        public void Criar(Pedido pedido)
+    public void Atualizar(Pedido pedido)
+    {
+        _context.Pedidos.Update(pedido);
+        _context.SaveChanges();
+    }
+
+    public void Remover(int id)
+    {
+        var pedido = _context.Pedidos.Find(id);
+
+        if (pedido != null)
         {
-            _context.Pedidos.Add(pedido);
+            _context.Pedidos.Remove(pedido);
             _context.SaveChanges();
         }
+    }
 
-        public void Atualizar(Pedido pedido)
-        {
-            _context.Pedidos.Update(pedido);
-            _context.SaveChanges();
-        }
+    public Pedido? ObterPorId(int id)
+    {
+        return _context.Pedidos.Find(id);
+    }
 
-        public Pedido ObterPorId(int id)
-        {
-            return _context.Pedidos
-                .Include(p => p.Usuario)
-                .FirstOrDefault(p => p.Id == id);
-        }
+    public List<Pedido> ObterPorClienteId(int clienteId)
+    {
+        return _context.Pedidos
+            .Where(p => p.ClienteId == clienteId)
+            .ToList();
+    }
 
-        public List<Pedido> ObterPorClienteId(string clienteId)
-        {
-            return _context.Pedidos
-                .Where(p => p.ApplicationUserId == clienteId)
-                .Include(p => p.Usuario)
-                .ToList();
-        }
-
-        public List<Pedido> ObterTodos()
-        {
-            return _context.Pedidos
-                .Include(p => p.Usuario)
-                .ToList();
-        }
+    public List<Pedido> ObterTodos()
+    {
+        return _context.Pedidos.ToList();
     }
 }

@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\InfinittyPart.domain\InfinittyPart.Domain.csproj" />
+		<ProjectReference Include="..\InfinittyPart.Domain\InfinittyPart.Domain.csproj" />
 		<ProjectReference Include="..\InfinityPart.Application\InfinityPart.Application.csproj" />
 	</ItemGroup>
 
@@ -20,6 +20,10 @@
 		</PackageReference>
 
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Services\" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using InfinityPart.Application.DTOs.Clientes;
 using InfinityPart.Application.Interfaces;
-using InfinityPart.Domain.Entidades;
-using InfinityPart.Domain.Interfaces;
+using InfinittyPart.Domain.Entidades;
+using InfinittyPart.Domain.Interfaces;
 
 namespace InfinityPart.Application.Services;
 
@@ -36,9 +36,9 @@ public class ClienteService : IClienteService
 
     public IEnumerable<ClienteDto> Listar()
     {
-        var clientes = _clienteRepository.ObterTodos();
-
-        return clientes.Select(MapearParaDto);
+        return _clienteRepository
+            .ObterTodos()
+            .Select(MapearParaDto);
     }
 
     public ClienteDto? BuscarPorId(int id)

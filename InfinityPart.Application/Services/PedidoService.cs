@@ -1,7 +1,7 @@
 ﻿using InfinityPart.Application.DTOs.Pedidos;
 using InfinityPart.Application.Interfaces;
-using InfinityPart.Domain.Interfaces;
-using InfinityPart.Entidades;
+using InfinittyPart.Domain.Interfaces;
+using InfinittyPart.Domain.Entidades;
 
 namespace InfinityPart.Application.Services;
 
@@ -20,34 +20,20 @@ public class PedidoService : IPedidoService
         {
             DataPedido = DateTime.UtcNow,
             ValorTotal = dto.ValorTotal,
-            Status = dto.Status,
-            ApplicationUserId = dto.ApplicationUserId
+            ClienteId = dto.ClienteId,
+            StatusPedidoId = dto.StatusPedidoId
         };
 
-        _pedidoRepository.Criar(pedido);
+        _pedidoRepository.Adicionar(pedido);
 
-        return new PedidoDto
-        {
-            Id = pedido.Id,
-            DataPedido = pedido.DataPedido,
-            ValorTotal = pedido.ValorTotal,
-            Status = pedido.Status,
-            ApplicationUserId = pedido.ApplicationUserId
-        };
+        return MapearParaDto(pedido);
     }
 
     public IEnumerable<PedidoDto> Listar()
     {
-        var pedidos = _pedidoRepository.ObterTodos();
-
-        return pedidos.Select(pedido => new PedidoDto
-        {
-            Id = pedido.Id,
-            DataPedido = pedido.DataPedido,
-            ValorTotal = pedido.ValorTotal,
-            Status = pedido.Status,
-            ApplicationUserId = pedido.ApplicationUserId
-        });
+        return _pedidoRepository
+            .ObterTodos()
+            .Select(MapearParaDto);
     }
 
     public PedidoDto? BuscarPorId(int id)
@@ -57,28 +43,14 @@ public class PedidoService : IPedidoService
         if (pedido == null)
             return null;
 
-        return new PedidoDto
-        {
-            Id = pedido.Id,
-            DataPedido = pedido.DataPedido,
-            ValorTotal = pedido.ValorTotal,
-            Status = pedido.Status,
-            ApplicationUserId = pedido.ApplicationUserId
-        };
+        return MapearParaDto(pedido);
     }
 
-    public IEnumerable<PedidoDto> BuscarPorClienteId(string clienteId)
+    public IEnumerable<PedidoDto> BuscarPorClienteId(int clienteId)
     {
-        var pedidos = _pedidoRepository.ObterPorClienteId(clienteId);
-
-        return pedidos.Select(pedido => new PedidoDto
-        {
-            Id = pedido.Id,
-            DataPedido = pedido.DataPedido,
-            ValorTotal = pedido.ValorTotal,
-            Status = pedido.Status,
-            ApplicationUserId = pedido.ApplicationUserId
-        });
+        return _pedidoRepository
+            .ObterPorClienteId(clienteId)
+            .Select(MapearParaDto);
     }
 
     public PedidoDto? Atualizar(AtualizarPedidoDto dto)
@@ -88,19 +60,36 @@ public class PedidoService : IPedidoService
         if (pedido == null)
             return null;
 
+        pedido.ClienteId = dto.ClienteId;
+        pedido.StatusPedidoId = dto.StatusPedidoId;
         pedido.ValorTotal = dto.ValorTotal;
-        pedido.Status = dto.Status;
-        pedido.ApplicationUserId = dto.ApplicationUserId;
 
         _pedidoRepository.Atualizar(pedido);
 
+        return MapearParaDto(pedido);
+    }
+
+    public bool Remover(int id)
+    {
+        var pedido = _pedidoRepository.ObterPorId(id);
+
+        if (pedido == null)
+            return false;
+
+        _pedidoRepository.Remover(id);
+
+        return true;
+    }
+
+    private static PedidoDto MapearParaDto(Pedido pedido)
+    {
         return new PedidoDto
         {
             Id = pedido.Id,
             DataPedido = pedido.DataPedido,
             ValorTotal = pedido.ValorTotal,
-            Status = pedido.Status,
-            ApplicationUserId = pedido.ApplicationUserId
+            ClienteId = pedido.ClienteId,
+            StatusPedidoId = pedido.StatusPedidoId
         };
     }
 }

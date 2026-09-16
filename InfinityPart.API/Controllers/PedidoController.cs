@@ -35,7 +35,7 @@ public class PedidoController : ControllerBase
     }
 
     [HttpGet("cliente/{clienteId}")]
-    public IActionResult BuscarPorClienteId(string clienteId)
+    public IActionResult BuscarPorClienteId(int clienteId)
     {
         var pedidos = _pedidoService.BuscarPorClienteId(clienteId);
 
@@ -64,5 +64,16 @@ public class PedidoController : ControllerBase
             return NotFound();
 
         return Ok(pedido);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Remover(int id)
+    {
+        var removido = _pedidoService.Remover(id);
+
+        if (!removido)
+            return NotFound();
+
+        return NoContent();
     }
 }

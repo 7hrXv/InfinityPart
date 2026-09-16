@@ -1,19 +1,18 @@
-﻿using InfinityPart.Domain.Entidades;
-using InfinityPart.Entidades;
-using System.Collections.Generic;
+﻿using InfinittyPart.Domain.Entidades;
 
-namespace InfinityPart.Domain.Interfaces
+namespace InfinittyPart.Domain.Interfaces;
+
+public interface IPedidoRepository
 {
-    public interface IPedidoRepository
-    {
-        void Criar(Pedido pedido);
+    void Adicionar(Pedido pedido);
 
-        void Atualizar(Pedido pedido);
+    void Atualizar(Pedido pedido);
 
-        Pedido ObterPorId(int id);
+    void Remover(int id);
 
-        List<Pedido> ObterPorClienteId(string clienteId);
+    Pedido? ObterPorId(int id);
 
-        List<Pedido> ObterTodos();
-    }
+    List<Pedido> ObterPorClienteId(int clienteId);
+
+    List<Pedido> ObterTodos();
 }

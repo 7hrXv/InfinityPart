@@ -19,44 +19,23 @@ public class ProdutoService : IProdutoService
         var produto = new Produto
         {
             Nome = dto.Nome,
-            CodigoPeca = dto.CodigoPeca,
+            Codigo = dto.Codigo,
             Descricao = dto.Descricao,
             Preco = dto.Preco,
             QuantidadeEstoque = dto.QuantidadeEstoque,
-            CategoriaId = dto.CategoriaId,
-            FabricanteId = dto.FabricanteId
+            MarcaId = dto.MarcaId
         };
 
-        await _produtoRepository.AdicionarAsync(produto);
+        _produtoRepository.Adicionar(produto);
 
-        return new ProdutoDto
-        {
-            Id = produto.Id,
-            Nome = produto.Nome,
-            CodigoPeca = produto.CodigoPeca,
-            Descricao = produto.Descricao,
-            Preco = produto.Preco,
-            QuantidadeEstoque = produto.QuantidadeEstoque,
-            CategoriaId = produto.CategoriaId,
-            FabricanteId = produto.FabricanteId
-        };
+        return MapearParaDto(produto);
     }
 
     public IEnumerable<ProdutoDto> Listar()
     {
         var produtos = _produtoRepository.ObterTodos();
 
-        return produtos.Select(produto => new ProdutoDto
-        {
-            Id = produto.Id,
-            Nome = produto.Nome,
-            CodigoPeca = produto.CodigoPeca,
-            Descricao = produto.Descricao,
-            Preco = produto.Preco,
-            QuantidadeEstoque = produto.QuantidadeEstoque,
-            CategoriaId = produto.CategoriaId,
-            FabricanteId = produto.FabricanteId
-        });
+        return produtos.Select(MapearParaDto);
     }
 
     public ProdutoDto? BuscarPorId(int id)
@@ -66,17 +45,21 @@ public class ProdutoService : IProdutoService
         if (produto == null)
             return null;
 
-        return new ProdutoDto
-        {
-            Id = produto.Id,
-            Nome = produto.Nome,
-            CodigoPeca = produto.CodigoPeca,
-            Descricao = produto.Descricao,
-            Preco = produto.Preco,
-            QuantidadeEstoque = produto.QuantidadeEstoque,
-            CategoriaId = produto.CategoriaId,
-            FabricanteId = produto.FabricanteId
-        };
+        return MapearParaDto(produto);
+    }
+
+    public IEnumerable<ProdutoDto> BuscarPorMarcaId(int marcaId)
+    {
+        var produtos = _produtoRepository.ObterPorMarcaId(marcaId);
+
+        return produtos.Select(MapearParaDto);
+    }
+
+    public IEnumerable<ProdutoDto> BuscarPorNome(string nome)
+    {
+        var produtos = _produtoRepository.ObterPorNome(nome);
+
+        return produtos.Select(MapearParaDto);
     }
 
     public ProdutoDto? Atualizar(AtualizarProdutoDto dto)
@@ -87,26 +70,15 @@ public class ProdutoService : IProdutoService
             return null;
 
         produto.Nome = dto.Nome;
-        produto.CodigoPeca = dto.CodigoPeca;
+        produto.Codigo = dto.Codigo;
         produto.Descricao = dto.Descricao;
         produto.Preco = dto.Preco;
         produto.QuantidadeEstoque = dto.QuantidadeEstoque;
-        produto.CategoriaId = dto.CategoriaId;
-        produto.FabricanteId = dto.FabricanteId;
+        produto.MarcaId = dto.MarcaId;
 
         _produtoRepository.Atualizar(produto);
 
-        return new ProdutoDto
-        {
-            Id = produto.Id,
-            Nome = produto.Nome,
-            CodigoPeca = produto.CodigoPeca,
-            Descricao = produto.Descricao,
-            Preco = produto.Preco,
-            QuantidadeEstoque = produto.QuantidadeEstoque,
-            CategoriaId = produto.CategoriaId,
-            FabricanteId = produto.FabricanteId
-        };
+        return MapearParaDto(produto);
     }
 
     public bool Remover(int id)
@@ -119,5 +91,19 @@ public class ProdutoService : IProdutoService
         _produtoRepository.Remover(id);
 
         return true;
+    }
+
+    private static ProdutoDto MapearParaDto(Produto produto)
+    {
+        return new ProdutoDto
+        {
+            Id = produto.Id,
+            Nome = produto.Nome,
+            Codigo = produto.Codigo,
+            Descricao = produto.Descricao,
+            Preco = produto.Preco,
+            QuantidadeEstoque = produto.QuantidadeEstoque,
+            MarcaId = produto.MarcaId
+        };
     }
 }

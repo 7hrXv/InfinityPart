@@ -2,8 +2,9 @@
 
 public class CriarPedidoDto
 {
-    public decimal ValorTotal { get; set; }
-    public string Status { get; set; } = "Pendente";
+    public int ClienteId { get; set; }
 
-    public string ApplicationUserId { get; set; } = string.Empty;
+    public int StatusPedidoId { get; set; }
+
+    public decimal ValorTotal { get; set; }
 }
