@@ -1,4 +1,5 @@
 ﻿using InfinityPart.Application.DTOs.Clientes;
+using InfinityPart.Application.Exceptions;
 using InfinityPart.Application.Interfaces;
 using InfinittyPart.Domain.Entidades;
 using InfinittyPart.Domain.Interfaces;
@@ -8,20 +9,41 @@ namespace InfinityPart.Application.Services;
 public class ClienteService : IClienteService
 {
     private readonly IClienteRepository _clienteRepository;
+    private readonly ISenhaHasher _senhaHasher;
 
-    public ClienteService(IClienteRepository clienteRepository)
+    public ClienteService(
+        IClienteRepository clienteRepository,
+        ISenhaHasher senhaHasher)
     {
         _clienteRepository = clienteRepository;
+        _senhaHasher = senhaHasher;
     }
 
     public Task<ClienteDto> CriarAsync(CriarClienteDto dto)
     {
+        if (dto == null)
+            throw new ValidacaoException("Dados do cliente são obrigatórios.");
+
+        if (string.IsNullOrWhiteSpace(dto.Senha))
+            throw new ValidacaoException("A senha é obrigatória.");
+
+        AutenticacaoService.ValidarSenha(dto.Senha);
+
+        var clienteExistente = _clienteRepository.ObterPorCpf(dto.Cpf);
+
+        if (clienteExistente != null)
+            throw new ValidacaoException("Já existe um cliente cadastrado com este CPF.");
+
         var cliente = new Cliente
         {
             Nome = dto.Nome,
             Cpf = dto.Cpf,
             Email = dto.Email,
             Telefone = dto.Telefone,
+
+            // A senha nunca é salva em texto puro.
+            SenhaHash = _senhaHasher.GerarHash(dto.Senha),
+
             Cep = dto.Cep,
             Endereco = dto.Endereco,
             Numero = dto.Numero,

@@ -113,6 +113,11 @@ public class InfinityPartDbContext : DbContext
             .Property(c => c.Estado)
             .HasMaxLength(2);
 
+        modelBuilder.Entity<Cliente>()
+           .Property(c => c.SenhaHash)
+           .IsRequired()
+           .HasMaxLength(500);
+
 
         // =========================
         // MARCA
