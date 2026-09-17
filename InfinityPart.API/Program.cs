@@ -1,8 +1,9 @@
-using InfinittyPart.Domain.Interfaces;
+﻿using InfinittyPart.Domain.Interfaces;
 using InfinityPart.Application.Interfaces;
 using InfinityPart.Application.Services;
 using InfinityPart.Infrastructure;
 using InfinityPart.Infrastructure.Repositories;
+using InfinityPart.Infrastructure.Seguranca;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,12 +32,16 @@ builder.Services.AddDbContext<InfinityPartDbContext>(options =>
 
 // Services da Application
 builder.Services.AddScoped<IAdministradorService, AdministradorService>();
+builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IItemPedidoService, ItemPedidoService>();
 builder.Services.AddScoped<IMarcaService, MarcaService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IStatusPedidoService, StatusPedidoService>();
+
+// Seguranca (hash de senha)
+builder.Services.AddSingleton<ISenhaHasher, SenhaHasher>();
 
 // Repositories da Infrastructure
 builder.Services.AddScoped<IAdministradorRepository, AdministradorRepository>();

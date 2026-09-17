@@ -51,6 +51,24 @@ public class InfinityPartDbContext : DbContext
             .Property(a => a.Telefone)
             .HasMaxLength(20);
 
+        // Hash da senha (PBKDF2). Nunca armazenar senha em texto puro.
+        modelBuilder.Entity<Administrador>()
+            .Property(a => a.SenhaHash)
+            .IsRequired()
+            .HasMaxLength(500)
+            .HasDefaultValue(string.Empty);
+
+        modelBuilder.Entity<Administrador>()
+            .Property(a => a.Ativo)
+            .IsRequired()
+            .HasDefaultValue(true);
+
+        modelBuilder.Entity<Administrador>()
+            .Ignore(a => a.PossuiSenhaDefinida);
+
+        modelBuilder.Entity<Administrador>()
+            .HasIndex(a => a.Email);
+
 
         // =========================
         // CLIENTE

@@ -4,3 +4,64 @@ GET {{InfinityPart.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### 1) Cadastrar administrador (a senha é convertida em hash na API)
+POST {{InfinityPart.API_HostAddress}}/api/administrador
+Content-Type: application/json
+
+{
+  "nome": "admin.teste",
+  "email": "admin.teste@infinitypart.com",
+  "cpf": "123.456.789-09",
+  "telefone": "11999999999",
+  "senha": "Infinity2026"
+}
+
+### 2) Login por e-mail
+POST {{InfinityPart.API_HostAddress}}/api/autenticacao/login
+Content-Type: application/json
+
+{
+  "identificador": "admin.teste@infinitypart.com",
+  "senha": "Infinity2026"
+}
+
+### 3) Login por usuário (Nome) ou CPF — mesmo endpoint
+POST {{InfinityPart.API_HostAddress}}/api/autenticacao/login
+Content-Type: application/json
+
+{
+  "identificador": "12345678909",
+  "senha": "Infinity2026"
+}
+
+### 4) Login inválido (deve retornar 401)
+POST {{InfinityPart.API_HostAddress}}/api/autenticacao/login
+Content-Type: application/json
+
+{
+  "identificador": "admin.teste@infinitypart.com",
+  "senha": "senhaerrada1"
+}
+
+### 5) Definir a primeira senha de um administrador antigo (sem senha no banco)
+POST {{InfinityPart.API_HostAddress}}/api/autenticacao/definir-senha
+Content-Type: application/json
+
+{
+  "administradorId": 1,
+  "senhaAtual": "",
+  "novaSenha": "Infinity2026"
+}
+
+### 6) Trocar senha (exige a senha atual)
+POST {{InfinityPart.API_HostAddress}}/api/autenticacao/definir-senha
+Content-Type: application/json
+
+{
+  "administradorId": 1,
+  "senhaAtual": "Infinity2026",
+  "novaSenha": "Infinity2027"
+}
+
+###

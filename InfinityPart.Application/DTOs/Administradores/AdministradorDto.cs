@@ -1,4 +1,4 @@
-﻿namespace InfinityPart.Application.DTOs.Administradores;
+namespace InfinityPart.Application.DTOs.Administradores;
 
 public class AdministradorDto
 {
@@ -13,4 +13,13 @@ public class AdministradorDto
     public string Telefone { get; set; } = string.Empty;
 
     public DateTime DataCadastro { get; set; }
+
+    public bool Ativo { get; set; } = true;
+
+    public DateTime? UltimoAcesso { get; set; }
+
+    /// <summary>
+    /// Indica se o administrador já definiu senha (nunca expõe o hash).
+    /// </summary>
+    public bool PossuiSenhaDefinida { get; set; }
 }

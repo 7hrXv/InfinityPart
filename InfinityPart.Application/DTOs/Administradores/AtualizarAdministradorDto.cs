@@ -1,4 +1,4 @@
-﻿namespace InfinityPart.Application.DTOs.Administradores;
+namespace InfinityPart.Application.DTOs.Administradores;
 
 public class AtualizarAdministradorDto
 {
@@ -11,4 +11,6 @@ public class AtualizarAdministradorDto
     public string Cpf { get; set; } = string.Empty;
 
     public string Telefone { get; set; } = string.Empty;
+
+    public bool Ativo { get; set; } = true;
 }

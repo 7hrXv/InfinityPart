@@ -1,4 +1,5 @@
 ﻿using InfinityPart.Application.DTOs.Administradores;
+using InfinityPart.Application.Exceptions;
 using InfinityPart.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,12 +47,20 @@ public class AdministradorController : ControllerBase
     [HttpPost]
     public IActionResult Criar(CriarAdministradorDto dto)
     {
-        var administrador = _administradorService.Criar(dto);
+        try
+        {
+            var administrador = _administradorService.Criar(dto);
 
-        return CreatedAtAction(
-            nameof(BuscarPorId),
-            new { id = administrador.Id },
-            administrador);
+            return CreatedAtAction(
+                nameof(BuscarPorId),
+                new { id = administrador.Id },
+                administrador);
+        }
+        catch (ValidacaoException ex)
+        {
+            // Senha fora das regras, e-mail vazio ou e-mail já cadastrado.
+            return BadRequest(new { mensagem = ex.Message });
+        }
     }
 
     [HttpPut("{id}")]
