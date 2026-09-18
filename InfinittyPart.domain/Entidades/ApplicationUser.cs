@@ -1,7 +1,6 @@
-﻿using InfinityPart.Entidades;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace InfinityPart.Domain.Entidades; 
+namespace InfinittyPart.Domain.Entidades;
 public class ApplicationUser : IdentityUser
 {
     // Campos adicionais do seu usuário além de E-mail e Senha

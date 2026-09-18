@@ -24,6 +24,11 @@ public class InfinityPartDbContext : DbContext
 
     public DbSet<StatusPedido> StatusPedidos { get; set; }
 
+    // Adiciona DbSets para entidades que são usadas pelos repositórios
+    public DbSet<Categoria> Categorias { get; set; }
+
+    public DbSet<Auditoria> Auditorias { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

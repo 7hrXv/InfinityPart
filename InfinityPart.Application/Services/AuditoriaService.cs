@@ -1,7 +1,7 @@
 ﻿using InfinityPart.Application.DTOs.Auditoria;
 using InfinityPart.Application.Interfaces;
-using InfinityPart.Domain.Interfaces;
-using InfinityPart.Entidades;
+using InfinittyPart.Domain.Interfaces;
+using InfinittyPart.Domain.Entidades;
 
 namespace InfinityPart.Application.Services;
 

@@ -1,6 +1,6 @@
 ﻿using InfinittyPart.Domain.Exceptions;
 
-namespace InfinityPart.Domain.ValueObjects
+namespace InfinittyPart.Domain.ValueObjects
 {
     public class Cpf
     {

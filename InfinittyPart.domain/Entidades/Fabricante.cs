@@ -1,6 +1,6 @@
 ﻿using InfinittyPart.Domain.Entidades;
 
-namespace InfinityPart.Entidades;
+namespace InfinittyPart.Domain.Entidades;
 
 public class Fabricante
 {

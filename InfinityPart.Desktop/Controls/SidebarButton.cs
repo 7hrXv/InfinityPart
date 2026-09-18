@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using InfinityPart.Desktop.Theme;
 
 namespace InfinityPart.Desktop.Controls
@@ -12,6 +13,8 @@ namespace InfinityPart.Desktop.Controls
         private bool _isActive;
         private bool _isHover;
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool IsActive
         {
             get => _isActive;

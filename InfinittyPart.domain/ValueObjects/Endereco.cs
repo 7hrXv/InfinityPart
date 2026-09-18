@@ -1,4 +1,4 @@
-﻿namespace InfinityPart.Domain.ValueObjects
+﻿namespace InfinittyPart.Domain.ValueObjects
 {
     public class Endereco
     {

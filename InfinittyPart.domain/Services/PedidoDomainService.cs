@@ -1,7 +1,7 @@
 ﻿using InfinittyPart.Domain.Entidades;
 using InfinittyPart.Domain.Exceptions;
 
-namespace InfinityPart.Domain.Services
+namespace InfinittyPart.Domain.Services
 {
     public class PedidoDomainService
     {

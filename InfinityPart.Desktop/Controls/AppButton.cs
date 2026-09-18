@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using InfinityPart.Desktop.Theme;
 
@@ -20,6 +21,8 @@ namespace InfinityPart.Desktop.Controls
         private bool _isHover;
 
         private AppButtonStyle _style = AppButtonStyle.Primary;
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public AppButtonStyle Style
         {
             get => _style;

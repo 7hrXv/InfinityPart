@@ -1,9 +1,8 @@
-﻿using InfinityPart.Domain.Entidades;
-using InfinityPart.Entidades;
+﻿using InfinittyPart.Domain.Entidades;
 using System;
 using System.Collections.Generic;
 
-namespace InfinityPart.Domain.Interfaces
+namespace InfinittyPart.Domain.Interfaces
 {
     // Interface responsável por definir as regras do histórico/logs da InfinityPart
     public interface IAuditoriaRepository

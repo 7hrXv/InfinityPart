@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using InfinityPart.Desktop.Theme;
 
 namespace InfinityPart.Desktop.Controls
@@ -11,18 +12,24 @@ namespace InfinityPart.Desktop.Controls
         private readonly Label _lblCaption;
         private readonly Panel _accentBar;
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Value
         {
             get => _lblValue.Text;
             set => _lblValue.Text = value;
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Caption
         {
             get => _lblCaption.Text;
             set => _lblCaption.Text = value;
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color AccentColor
         {
             get => _accentBar.BackColor;

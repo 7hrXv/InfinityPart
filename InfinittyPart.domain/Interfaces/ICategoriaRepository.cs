@@ -1,9 +1,7 @@
 ﻿using InfinittyPart.Domain.Entidades;
-using InfinityPart.Domain.Entidades;
-using InfinityPart.Entidades;
 using System.Collections.Generic;
 
-namespace InfinityPart.Domain.Interfaces
+namespace InfinittyPart.Domain.Interfaces
 {
     // Interface para gerenciar as Categorias de produtos da InfinityPart
     public interface ICategoriaRepository

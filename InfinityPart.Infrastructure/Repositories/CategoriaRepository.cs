@@ -1,4 +1,4 @@
-﻿using InfinityPart.Domain.Interfaces;
+﻿using InfinittyPart.Domain.Interfaces;
 using InfinittyPart.Domain.Entidades;
 
 namespace InfinityPart.Infrastructure.Repositories

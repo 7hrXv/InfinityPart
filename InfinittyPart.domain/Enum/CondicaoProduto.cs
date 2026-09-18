@@ -1,4 +1,4 @@
-﻿namespace InfinityPart.Domain.Enums
+﻿namespace InfinittyPart.Domain.Enums
 {
     // Um Enum é apenas uma lista de opções fixas com nomes amigáveis
     public enum CondicaoProduto

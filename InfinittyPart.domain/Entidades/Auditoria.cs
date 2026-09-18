@@ -1,4 +1,4 @@
-﻿namespace InfinityPart.Entidades; // Mantenha o mesmo namespace das outras classes
+﻿namespace InfinittyPart.Domain.Entidades;
 
 public class Auditoria
 {

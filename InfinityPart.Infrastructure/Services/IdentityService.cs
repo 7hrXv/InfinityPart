@@ -1,6 +1,6 @@
 ﻿using InfinityPart.Application.DTOs.Auth;
 using InfinityPart.Application.Interfaces;
-using InfinityPart.Domain.Entidades;
+using InfinittyPart.Domain.Entidades;
 using Microsoft.AspNetCore.Identity;
 
 namespace InfinityPart.Infrastructure.Services;

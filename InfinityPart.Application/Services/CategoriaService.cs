@@ -1,8 +1,8 @@
 ﻿using InfinittyPart.Domain.Entidades;
 using InfinityPart.Application.DTOs.Categorias;
 using InfinityPart.Application.Interfaces;
-using InfinityPart.Domain.Entidades;
-using InfinityPart.Domain.Interfaces;
+using InfinittyPart.Domain.Entidades;
+using InfinittyPart.Domain.Interfaces;
 
 namespace InfinityPart.Application.Services;
 
