@@ -26,6 +26,8 @@ namespace InfinityPart.Desktop
 
         // Content
         private Panel pnlContent = null!;
+        // Host para carregar módulos (forms) dinamicamente
+        private Panel pnlHost = null!;
 
         // Dashboard section
         private Panel pnlDashboard = null!;
@@ -153,6 +155,14 @@ namespace InfinityPart.Desktop
                 Padding = new Padding(30, 24, 30, 24)
             };
 
+            // Painel host para carregar forms/modulos
+            pnlHost = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = AppTheme.Background,
+                Visible = false
+            };
+
             // ----- Dashboard section -----
             pnlDashboard = new Panel { Dock = DockStyle.Fill, BackColor = AppTheme.Background };
 
@@ -223,6 +233,7 @@ namespace InfinityPart.Desktop
 
             pnlContent.Controls.Add(pnlPlaceholder);
             pnlContent.Controls.Add(pnlDashboard);
+            pnlContent.Controls.Add(pnlHost);
 
             // ===== Composição final =====
             Controls.Add(pnlContent);

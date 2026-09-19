@@ -18,7 +18,7 @@ namespace InfinityPart.Desktop.Services
     public static class AutenticacaoLocalService
     {
         private const string UsuarioTeste = "admin";
-        private const string SenhaTeste = "admin123";
+        private const string SenhaTeste = "123";
 
         /// <summary>
         /// Mesma assinatura de AutenticacaoApiService.LoginAsync, para que o FrmLogin

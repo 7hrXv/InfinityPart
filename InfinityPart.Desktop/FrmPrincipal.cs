@@ -12,11 +12,15 @@ namespace InfinityPart.Desktop
             InitializeComponent();
 
             btnNavDashboard.Click += (_, _) => IrParaDashboard();
-            btnNavProdutos.Click += (_, _) => IrParaModuloEmConstrucao(btnNavProdutos, "Produtos");
-            btnNavClientes.Click += (_, _) => IrParaModuloEmConstrucao(btnNavClientes, "Clientes");
-            btnNavPedidos.Click += (_, _) => IrParaModuloEmConstrucao(btnNavPedidos, "Pedidos");
-            btnNavMarcas.Click += (_, _) => IrParaModuloEmConstrucao(btnNavMarcas, "Marcas");
+            btnNavProdutos.Click += (_, _) => IrParaModuloProdutos();
+            btnNavClientes.Click += (_, _) => IrParaModuloClientes();
+            btnNavPedidos.Click += (_, _) => IrParaModuloPedidos();
+            btnNavMarcas.Click += (_, _) => IrParaModuloMarcas();
             btnNavSair.Click += (_, _) => Sair();
+
+            // Cabeçalho: abrir perfil ao clicar no nome do usuário
+            lblUser.Cursor = Cursors.Hand;
+            lblUser.Click += (_, _) => MostrarPerfil();
 
             Load += FrmPrincipal_Load;
         }
@@ -68,11 +72,76 @@ namespace InfinityPart.Desktop
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            if (confirmar == DialogResult.Yes)
+            if (confirmar != DialogResult.Yes)
+                return;
+
+            // Encerrar sessão e voltar para a tela de login
+            SessaoAtual.Encerrar();
+
+            Hide();
+            using var login = new FrmLogin();
+            if (login.ShowDialog() != DialogResult.OK)
             {
-                SessaoAtual.Encerrar();
                 Application.Exit();
+                return;
             }
+
+            // Novo login realizado: atualizar cabeçalho e recarregar dashboard
+            lblUser.Text = $"Olá, {SessaoAtual.NomeExibicao}";
+            PositionHeaderUser();
+            _ = CarregarDashboardAsync();
+            Show();
+        }
+
+        private void MostrarPerfil()
+        {
+            using var frm = new FrmPerfilAdministrador();
+            frm.ShowDialog();
+            // Depois de fechar, atualizar exibição do nome
+            lblUser.Text = $"Olá, {SessaoAtual.NomeExibicao}";
+            PositionHeaderUser();
+        }
+
+        // Navegação para módulos: carregam forms no painel host
+        private void AbrirNoHost(Form form)
+        {
+            pnlHost.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            pnlHost.Controls.Add(form);
+            pnlHost.Visible = true;
+            pnlDashboard.Visible = false;
+            pnlPlaceholder.Visible = false;
+            form.Show();
+        }
+
+        private void IrParaModuloProdutos()
+        {
+            MarcarAtivo(btnNavProdutos);
+            lblSectionTitle.Text = "Produtos";
+            AbrirNoHost(new FrmProdutos());
+        }
+
+        private void IrParaModuloClientes()
+        {
+            MarcarAtivo(btnNavClientes);
+            lblSectionTitle.Text = "Clientes";
+            AbrirNoHost(new FrmClientes());
+        }
+
+        private void IrParaModuloPedidos()
+        {
+            MarcarAtivo(btnNavPedidos);
+            lblSectionTitle.Text = "Pedidos";
+            AbrirNoHost(new FrmPedidos());
+        }
+
+        private void IrParaModuloMarcas()
+        {
+            MarcarAtivo(btnNavMarcas);
+            lblSectionTitle.Text = "Marcas";
+            AbrirNoHost(new FrmMarcas());
         }
 
         // ---------- Dashboard ----------
