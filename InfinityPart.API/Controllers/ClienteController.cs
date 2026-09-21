@@ -15,6 +15,7 @@ public class ClienteController : ControllerBase
         _clienteService = clienteService;
     }
 
+    // GET: api/Cliente
     [HttpGet]
     public IActionResult Listar()
     {
@@ -23,7 +24,8 @@ public class ClienteController : ControllerBase
         return Ok(clientes);
     }
 
-    [HttpGet("{id}")]
+    // GET: api/Cliente/5
+    [HttpGet("{id:int}")]
     public IActionResult BuscarPorId(int id)
     {
         var cliente = _clienteService.BuscarPorId(id);
@@ -34,10 +36,11 @@ public class ClienteController : ControllerBase
         return Ok(cliente);
     }
 
+    // POST: api/Cliente
     [HttpPost]
-    public IActionResult Criar(CriarClienteDto dto)
+    public async Task<IActionResult> Criar([FromBody] CriarClienteDto dto)
     {
-        var cliente = _clienteService.CriarAsync(dto);
+        var cliente = await _clienteService.CriarAsync(dto);
 
         return CreatedAtAction(
             nameof(BuscarPorId),
@@ -45,8 +48,11 @@ public class ClienteController : ControllerBase
             cliente);
     }
 
-    [HttpPut("{id}")]
-    public IActionResult Atualizar(int id, AtualizarClienteDto dto)
+    // PUT: api/Cliente/5
+    [HttpPut("{id:int}")]
+    public IActionResult Atualizar(
+        int id,
+        [FromBody] AtualizarClienteDto dto)
     {
         dto.Id = id;
 
@@ -58,7 +64,8 @@ public class ClienteController : ControllerBase
         return Ok(cliente);
     }
 
-    [HttpDelete("{id}")]
+    // DELETE: api/Cliente/5
+    [HttpDelete("{id:int}")]
     public IActionResult Remover(int id)
     {
         var removido = _clienteService.Remover(id);

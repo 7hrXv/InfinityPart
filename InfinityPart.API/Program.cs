@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// =====================================================
+// CORS
+// =====================================================
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEnd", policy =>
@@ -22,15 +26,25 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Controllers
+// =====================================================
+// CONTROLLERS
+// =====================================================
+
 builder.Services.AddControllers();
 
-// Banco de dados
+// =====================================================
+// BANCO DE DADOS
+// =====================================================
+
 builder.Services.AddDbContext<InfinityPartDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 
-// Services da Application
+// =====================================================
+// SERVICES - APPLICATION
+// =====================================================
+
 builder.Services.AddScoped<IAdministradorService, AdministradorService>();
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
@@ -40,10 +54,16 @@ builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IStatusPedidoService, StatusPedidoService>();
 
-// Seguranca (hash de senha)
+// =====================================================
+// SEGURANÇA
+// =====================================================
+
 builder.Services.AddSingleton<ISenhaHasher, SenhaHasher>();
 
-// Repositories da Infrastructure
+// =====================================================
+// REPOSITORIES - INFRASTRUCTURE
+// =====================================================
+
 builder.Services.AddScoped<IAdministradorRepository, AdministradorRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IItemPedidoRepository, ItemPedidoRepository>();
@@ -51,27 +71,56 @@ builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IStatusPedidoRepository, StatusPedidoRepository>();
-builder.Services.AddScoped<ISenhaHasher, SenhaHasher>();
-// Swagger
+
+// =====================================================
+// SWAGGER
+// =====================================================
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// =====================================================
+// BUILD DA APLICAÇÃO
+// =====================================================
+
 var app = builder.Build();
+
+// =====================================================
+// CORS
+// =====================================================
 
 app.UseCors("FrontEnd");
 
-// Swagger
+// =====================================================
+// SWAGGER
+// =====================================================
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// =====================================================
 // HTTPS
+// =====================================================
+
 app.UseHttpsRedirection();
+
+// =====================================================
+// AUTORIZAÇÃO
+// =====================================================
 
 app.UseAuthorization();
 
+// =====================================================
+// CONTROLLERS
+// =====================================================
+
 app.MapControllers();
+
+// =====================================================
+// EXECUÇÃO
+// =====================================================
 
 app.Run();
