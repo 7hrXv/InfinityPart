@@ -14,5 +14,7 @@ public interface IClienteRepository
 
     Cliente? ObterPorCpf(string cpf);
 
+    Cliente? ObterPorLogin(string identificador);
+
     List<Cliente> ObterTodos();
 }

@@ -16,11 +16,10 @@ public class AutenticacaoController : ControllerBase
         _autenticacaoService = autenticacaoService;
     }
 
-    /// <summary>
-    /// POST api/autenticacao/login
-    /// Valida as credenciais do administrador (usuário/e-mail/CPF + senha).
-    /// Retorna 200 com os dados do administrador ou 401 com a mensagem de erro.
-    /// </summary>
+    // =========================================================
+    // LOGIN DE ADMINISTRADOR
+    // =========================================================
+
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginDto dto)
     {
@@ -32,25 +31,47 @@ public class AutenticacaoController : ControllerBase
         return Ok(resultado);
     }
 
-    /// <summary>
-    /// POST api/autenticacao/definir-senha
-    /// Define a primeira senha ou troca a senha existente (exige a senha atual).
-    /// </summary>
+    // =========================================================
+    // LOGIN DE CLIENTE
+    // =========================================================
+
+    [HttpPost("login-cliente")]
+    public IActionResult LoginCliente([FromBody] LoginDto dto)
+    {
+        var resultado = _autenticacaoService.AutenticarCliente(dto);
+
+        if (!resultado.Autenticado)
+            return Unauthorized(resultado);
+
+        return Ok(resultado);
+    }
+
+    // =========================================================
+    // DEFINIR / ALTERAR SENHA DO ADMINISTRADOR
+    // =========================================================
+
     [HttpPost("definir-senha")]
     public IActionResult DefinirSenha([FromBody] DefinirSenhaDto dto)
     {
         try
         {
             _autenticacaoService.DefinirSenha(dto);
+
             return NoContent();
         }
         catch (RecursoNaoEncontradoException ex)
         {
-            return NotFound(new { mensagem = ex.Message });
+            return NotFound(new
+            {
+                mensagem = ex.Message
+            });
         }
         catch (ValidacaoException ex)
         {
-            return BadRequest(new { mensagem = ex.Message });
+            return BadRequest(new
+            {
+                mensagem = ex.Message
+            });
         }
     }
 }
