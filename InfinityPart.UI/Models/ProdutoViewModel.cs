@@ -14,7 +14,5 @@ public class ProdutoViewModel
 
     public int QuantidadeEstoque { get; set; }
 
-    public int CategoriaId { get; set; }
-
-    public int FabricanteId { get; set; }
+   
 }
