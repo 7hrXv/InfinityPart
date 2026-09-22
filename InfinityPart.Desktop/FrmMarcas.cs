@@ -81,10 +81,10 @@ namespace InfinityPart.Desktop
 
             // Rounded search and buttons
             UIHelpers.RoundControl(searchInner, 10);
-            UIHelpers.RoundControl(btnNovo, 6);
-            UIHelpers.RoundControl(btnEditar, 6);
-            UIHelpers.RoundControl(btnExcluir, 6);
-            UIHelpers.RoundControl(btnAtualizar, 6);
+            UIHelpers.RoundControl(btnNovo, 10);
+            UIHelpers.RoundControl(btnEditar, 10);
+            UIHelpers.RoundControl(btnExcluir, 10);
+            UIHelpers.RoundControl(btnAtualizar, 10);
 
             Load += (_, _) => _ = CarregarAsync();
             btnAtualizar.Click += (_, _) => _ = CarregarAsync();
@@ -197,15 +197,88 @@ namespace InfinityPart.Desktop
 
         private void MostrarEditor(MarcaModel? marca)
         {
-            using var frm = new Form { Width = 480, Height = 300, StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, Text = marca == null ? "Nova Marca" : "Editar Marca" };
-            var main = new Guna2Panel { Dock = DockStyle.Fill, Padding = new Padding(16), BackColor = Theme.AppTheme.Surface };
-            var lblTitle = new Guna2HtmlLabel { Text = marca == null ? "NOVA MARCA" : "EDITAR MARCA", Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold) };
+            // Investigar: layout anterior estava calculando posições manualmente e
+            // misturando Dock = Top para o título com posições absolutas para os
+            // campos. Para tornar o layout previsível e evitar quebras causadas
+            // por AutoSize/AutoLayout, usamos um container simples (FlowLayoutPanel)
+            // em fluxo vertical e um painel dedicado para botões centralizados.
 
-            var txtNome = new Guna2TextBox { PlaceholderText = "Nome", Width = 420, Location = new System.Drawing.Point(20, 50) };
-            var txtCnpj = new Guna2TextBox { PlaceholderText = "CNPJ", Width = 420, Location = new System.Drawing.Point(20, 100) };
+            const int dialogWidth = 500;
+            const int dialogHeight = 390;
+            const int outerPad = 16;
+            const int labelH = 20;
+            const int gapLabelField = 6;
+            const int fieldH = 34;
+            const int verticalSpacingBetweenFields = 16; // mais espaço vertical entre campos
+            const int btnPanelHeight = 64;
 
-            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Location = new System.Drawing.Point(200, 170) };
-            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Location = new System.Drawing.Point(360, 170) };
+            using var frm = new Form { StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, Text = marca == null ? "Nova Marca" : "Editar Marca" };
+            frm.ClientSize = new Size(dialogWidth, dialogHeight);
+
+            var main = new Guna2Panel { Dock = DockStyle.Fill, Padding = new Padding(outerPad), BackColor = Theme.AppTheme.Surface };
+
+            var lblTitle = new Guna2HtmlLabel
+            {
+                Text = marca == null ? "NOVA MARCA" : "EDITAR MARCA",
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold),
+                Height = 36,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Top
+            };
+
+            // Container vertical para labels+campos, facilita espaçamento uniforme
+            var fields = new FlowLayoutPanel
+            {
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoSize = false,
+                Location = new Point(outerPad, lblTitle.Height + outerPad),
+                Size = new Size(frm.ClientSize.Width - outerPad * 2, frm.ClientSize.Height - lblTitle.Height - btnPanelHeight - outerPad * 3),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+
+            // ID (opcional)
+            Guna2TextBox? txtId = null;
+            if (marca != null)
+            {
+                var lblId = new Guna2HtmlLabel { Text = "ID da Marca", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true };
+                txtId = new Guna2TextBox { Text = marca.Id.ToString(), ReadOnly = true, Width = fields.Width, Height = fieldH, BackColor = Theme.AppTheme.SurfaceAlt, ForeColor = Color.White };
+                lblId.Margin = new Padding(0, 0, 0, gapLabelField);
+                txtId.Margin = new Padding(0, 0, 0, verticalSpacingBetweenFields);
+                fields.Controls.Add(lblId);
+                fields.Controls.Add(txtId);
+            }
+
+            // Nome
+            var lblNome = new Guna2HtmlLabel { Text = "Nome", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true };
+            var txtNome = new Guna2TextBox { PlaceholderText = "Nome", Width = fields.Width, Height = fieldH, ReadOnly = false, Enabled = true };
+            lblNome.Margin = new Padding(0, 0, 0, gapLabelField);
+            txtNome.Margin = new Padding(0, 0, 0, verticalSpacingBetweenFields);
+            fields.Controls.Add(lblNome);
+            fields.Controls.Add(txtNome);
+
+            // CNPJ
+            var lblCnpj = new Guna2HtmlLabel { Text = "CNPJ", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true };
+            var txtCnpj = new Guna2TextBox { PlaceholderText = "CNPJ", Width = fields.Width, Height = fieldH, ReadOnly = false, Enabled = true };
+            lblCnpj.Margin = new Padding(0, 0, 0, gapLabelField);
+            txtCnpj.Margin = new Padding(0, 0, 0, verticalSpacingBetweenFields + 6);
+            fields.Controls.Add(lblCnpj);
+            fields.Controls.Add(txtCnpj);
+
+            // Botões centralizados na parte inferior
+            var btnPanel = new Panel { Dock = DockStyle.Bottom, Height = btnPanelHeight, BackColor = Color.Transparent };
+            var flButtons = new FlowLayoutPanel { FlowDirection = FlowDirection.LeftToRight, WrapContents = false, AutoSize = false, Height = 36 };
+            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Height = 36 };
+            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Height = 36 };
+            flButtons.Controls.Add(btnCancelar);
+            flButtons.Controls.Add(btnSalvar);
+            // centralizar os botões dentro do painel de botões (usar dimensões do painel)
+            btnPanel.Controls.Add(flButtons);
+            flButtons.Width = btnCancelar.Width + btnSalvar.Width + 12; // 12px gap
+            flButtons.Left = Math.Max(0, (btnPanel.ClientSize.Width - flButtons.Width) / 2);
+            flButtons.Top = Math.Max(0, (btnPanel.Height - flButtons.Height) / 2);
+            flButtons.Anchor = AnchorStyles.None;
 
             if (marca != null)
             {
@@ -214,21 +287,27 @@ namespace InfinityPart.Desktop
             }
 
             main.Controls.Add(lblTitle);
-            main.Controls.Add(txtNome);
-            main.Controls.Add(txtCnpj);
-            main.Controls.Add(btnCancelar);
-            main.Controls.Add(btnSalvar);
-
+            main.Controls.Add(fields);
+            main.Controls.Add(btnPanel);
             frm.Controls.Add(main);
 
-            UIHelpers.StyleTextBox(txtNome);
-            UIHelpers.StyleTextBox(txtCnpj);
+            // Aplica estilo sem alterar comportamento
+            foreach (Control c in new Control[] { txtNome, txtCnpj, txtId })
+            {
+                if (c is Guna2TextBox tb)
+                {
+                    UIHelpers.StyleTextBoxFlat(tb, 10);
+                    UIHelpers.RoundControl(tb, 10);
+                }
+            }
+
             UIHelpers.StyleButton(btnSalvar, AppTheme.PrimaryRed, AppTheme.PrimaryRedHover);
             UIHelpers.StyleButton(btnCancelar, AppTheme.SurfaceAlt, AppTheme.Surface);
-            UIHelpers.RoundControl(main, 8);
-            UIHelpers.RoundControl(btnSalvar, 6);
-            UIHelpers.RoundControl(btnCancelar, 6);
+            UIHelpers.RoundControl(btnSalvar, 10);
+            UIHelpers.RoundControl(btnCancelar, 10);
+            UIHelpers.RoundControl(main, 10);
 
+            // Eventos de ação mantidos
             btnCancelar.Click += (_, _) => frm.Close();
 
             btnSalvar.Click += async (_, _) =>

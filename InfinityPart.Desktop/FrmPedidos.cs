@@ -91,10 +91,10 @@ namespace InfinityPart.Desktop
 
             // Rounded visuals
             UIHelpers.RoundControl(searchInner, 10);
-            UIHelpers.RoundControl(btnNovo, 6);
-            UIHelpers.RoundControl(btnEditar, 6);
-            UIHelpers.RoundControl(btnExcluir, 6);
-            UIHelpers.RoundControl(btnAtualizar, 6);
+            UIHelpers.RoundControl(btnNovo, 10);
+            UIHelpers.RoundControl(btnEditar, 10);
+            UIHelpers.RoundControl(btnExcluir, 10);
+            UIHelpers.RoundControl(btnAtualizar, 10);
 
             UIHelpers.StyleGrid(dgv);
             dgv.ScrollBars = ScrollBars.Vertical;
@@ -201,18 +201,126 @@ namespace InfinityPart.Desktop
 
         private void MostrarEditor(PedidoModel? pedido)
         {
-            using var frm = new Form { Width = 520, Height = 420, StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, Text = pedido == null ? "Novo Pedido" : "Editar Pedido" };
-            var main = new Guna2Panel { Dock = DockStyle.Fill, Padding = new Padding(16), BackColor = Theme.AppTheme.Surface };
-            var lblTitle = new Guna2HtmlLabel { Text = pedido == null ? "NOVO PEDIDO" : "EDITAR PEDIDO", Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold) };
+            // Alinha visualmente ao padrão do Editar Marca: layout compacto, espaçamento uniforme
+            const int dialogWidth = 520;
+            const int dialogHeight = 360;
+            const int outerPad = 16;
+            const int fieldH = 34;
+            const int labelH = 20;
+            const int gapLabelField = 6;
+            const int verticalSpacing = 16;
+            const int btnPanelHeight = 64;
 
-            var dpData = new DateTimePicker { Width = 240, Location = new System.Drawing.Point(20, 50) };
-            var txtValor = new Guna2TextBox { PlaceholderText = "Valor total", Width = 240, Location = new System.Drawing.Point(280, 50) };
-            var cbCliente = new ComboBox { Width = 240, Location = new System.Drawing.Point(20, 110), DropDownStyle = ComboBoxStyle.DropDownList };
-            var cbStatus = new ComboBox { Width = 240, Location = new System.Drawing.Point(280, 110), DropDownStyle = ComboBoxStyle.DropDownList };
+            using var frm = new Form { StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, Text = pedido == null ? "Novo Pedido" : "Editar Pedido" };
+            frm.ClientSize = new Size(dialogWidth, dialogHeight);
 
-            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Location = new System.Drawing.Point(220, 180) };
-            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Location = new System.Drawing.Point(380, 180) };
+            var main = new Guna2Panel { Dock = DockStyle.Fill, Padding = new Padding(outerPad), BackColor = Theme.AppTheme.Surface };
+            var lblTitle = new Guna2HtmlLabel { Text = pedido == null ? "NOVO PEDIDO" : "EDITAR PEDIDO", ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold), Height = 36, TextAlign = ContentAlignment.MiddleLeft, Dock = DockStyle.Top };
 
+            var fields = new FlowLayoutPanel { FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoSize = false, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            fields.Location = new Point(outerPad, lblTitle.Height + outerPad);
+            fields.Size = new Size(frm.ClientSize.Width - outerPad * 2, frm.ClientSize.Height - lblTitle.Height - btnPanelHeight - outerPad * 3);
+
+            // ID (opcional)
+            Guna2TextBox txtId = null;
+            if (pedido != null)
+            {
+                var lblId = new Guna2HtmlLabel { Text = "ID do Pedido", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true };
+                txtId = new Guna2TextBox { Text = pedido.Id.ToString(), ReadOnly = true, Width = fields.Width, Height = fieldH, BackColor = Theme.AppTheme.SurfaceAlt, ForeColor = Color.White };
+                lblId.Margin = new Padding(0, 0, 0, gapLabelField);
+                txtId.Margin = new Padding(0, 0, 0, verticalSpacing);
+                fields.Controls.Add(lblId);
+                fields.Controls.Add(txtId);
+            }
+
+            // Row: Data (left) | Valor (right)
+            var row1 = new Panel { Width = fields.Width, Height = labelH + gapLabelField + fieldH, Margin = new Padding(0, 0, 0, verticalSpacing) };
+            int colGap = 20;
+            int leftColW = (row1.Width - colGap) * 55 / 100; // data wider
+            int rightColW = row1.Width - colGap - leftColW;
+
+            var leftPanel1 = new Panel { Location = new Point(0, 0), Size = new Size(leftColW, row1.Height) };
+            var lblData = new Guna2HtmlLabel { Text = "Data", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true, Location = new Point(0, 0) };
+            var dpData = new Guna2DateTimePicker { Width = leftPanel1.Width, Location = new Point(0, labelH + gapLabelField), Format = DateTimePickerFormat.Short };
+            // Visual: fundo escuro, texto branco, sem bordas visíveis
+            try
+            {
+                dpData.Height = fieldH;
+                dpData.BackColor = AppTheme.SurfaceAlt;
+                dpData.ForeColor = AppTheme.TextPrimary;
+                dpData.CalendarForeColor = AppTheme.TextPrimary;
+                dpData.CalendarMonthBackground = AppTheme.SurfaceAlt;
+                dpData.CalendarTitleBackColor = AppTheme.SurfaceAlt;
+                dpData.CalendarTitleForeColor = AppTheme.TextPrimary;
+                dpData.CalendarTrailingForeColor = AppTheme.TextSecondary;
+                // Guna-like properties (stubs) to allow rounded visual where available
+                try { dpData.GetType().GetProperty("FillColor")?.SetValue(dpData, AppTheme.SurfaceAlt); } catch { }
+                try { dpData.GetType().GetProperty("BorderRadius")?.SetValue(dpData, 10); } catch { }
+                try { dpData.GetType().GetProperty("BorderThickness")?.SetValue(dpData, 0); } catch { }
+                try { dpData.GetType().GetProperty("BorderColor")?.SetValue(dpData, AppTheme.SurfaceAlt); } catch { }
+            }
+            catch { }
+            leftPanel1.Controls.Add(lblData);
+            leftPanel1.Controls.Add(dpData);
+
+            var rightPanel1 = new Panel { Location = new Point(leftColW + colGap, 0), Size = new Size(rightColW, row1.Height) };
+            var lblValor = new Guna2HtmlLabel { Text = "Valor", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true, Location = new Point(0, 0) };
+            var txtValor = new Guna2TextBox { PlaceholderText = "Valor total", Width = rightPanel1.Width, Height = fieldH, Location = new Point(0, labelH + gapLabelField), ReadOnly = false, Enabled = true };
+            rightPanel1.Controls.Add(lblValor);
+            rightPanel1.Controls.Add(txtValor);
+
+            row1.Controls.Add(leftPanel1);
+            row1.Controls.Add(rightPanel1);
+            fields.Controls.Add(row1);
+
+            // Row: Cliente (left) | Status (right)
+            var row2 = new Panel { Width = fields.Width, Height = labelH + gapLabelField + fieldH, Margin = new Padding(0, 0, 0, verticalSpacing) };
+            var leftPanel2 = new Panel { Location = new Point(0, 0), Size = new Size(leftColW, row2.Height) };
+            var lblCliente = new Guna2HtmlLabel { Text = "Cliente", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true, Location = new Point(0, 0) };
+            var cbCliente = new Guna2ComboBox { Width = leftPanel2.Width, Location = new Point(0, labelH + gapLabelField), DropDownStyle = ComboBoxStyle.DropDownList };
+            // Ensure dark theme and no white areas; use Guna stub properties when available
+            try
+            {
+                cbCliente.Height = fieldH;
+                cbCliente.BackColor = AppTheme.SurfaceAlt;
+                cbCliente.ForeColor = AppTheme.TextPrimary;
+                cbCliente.FlatStyle = FlatStyle.Flat;
+                cbCliente.DrawMode = DrawMode.OwnerDrawFixed;
+                cbCliente.DropDownStyle = ComboBoxStyle.DropDownList;
+                try { cbCliente.GetType().GetProperty("FillColor")?.SetValue(cbCliente, AppTheme.SurfaceAlt); } catch { }
+                try { cbCliente.GetType().GetProperty("BorderRadius")?.SetValue(cbCliente, 10); } catch { }
+                try { cbCliente.GetType().GetProperty("BorderThickness")?.SetValue(cbCliente, 0); } catch { }
+                try { cbCliente.GetType().GetProperty("BorderColor")?.SetValue(cbCliente, AppTheme.SurfaceAlt); } catch { }
+            }
+            catch { }
+            leftPanel2.Controls.Add(lblCliente);
+            leftPanel2.Controls.Add(cbCliente);
+
+            var rightPanel2 = new Panel { Location = new Point(leftColW + colGap, 0), Size = new Size(rightColW, row2.Height) };
+            var lblStatus = new Guna2HtmlLabel { Text = "Status", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), AutoSize = true, Location = new Point(0, 0) };
+            var cbStatus = new Guna2ComboBox { Width = rightPanel2.Width, Location = new Point(0, labelH + gapLabelField), DropDownStyle = ComboBoxStyle.DropDownList };
+            try
+            {
+                cbStatus.Height = fieldH;
+                cbStatus.BackColor = AppTheme.SurfaceAlt;
+                cbStatus.ForeColor = AppTheme.TextPrimary;
+                cbStatus.FlatStyle = FlatStyle.Flat;
+                cbStatus.DrawMode = DrawMode.OwnerDrawFixed;
+                cbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+                try { cbStatus.GetType().GetProperty("FillColor")?.SetValue(cbStatus, AppTheme.SurfaceAlt); } catch { }
+                try { cbStatus.GetType().GetProperty("BorderRadius")?.SetValue(cbStatus, 10); } catch { }
+                try { cbStatus.GetType().GetProperty("BorderThickness")?.SetValue(cbStatus, 0); } catch { }
+                try { cbStatus.GetType().GetProperty("BorderColor")?.SetValue(cbStatus, AppTheme.SurfaceAlt); } catch { }
+            }
+            catch { }
+            rightPanel2.Controls.Add(lblStatus);
+            rightPanel2.Controls.Add(cbStatus);
+
+            row2.Controls.Add(leftPanel2);
+            row2.Controls.Add(rightPanel2);
+            fields.Controls.Add(row2);
+
+            // Populate combo boxes
             foreach (var c in _clientes)
                 cbCliente.Items.Add(new ComboBoxItem { Value = c.Id, Text = c.Nome });
 
@@ -227,23 +335,38 @@ namespace InfinityPart.Desktop
                 cbStatus.SelectedIndex = _status.FindIndex(s => s.Id == pedido.StatusPedidoId);
             }
 
-            main.Controls.Add(lblTitle);
-            main.Controls.Add(dpData);
-            main.Controls.Add(txtValor);
-            main.Controls.Add(cbCliente);
-            main.Controls.Add(cbStatus);
-            main.Controls.Add(btnCancelar);
-            main.Controls.Add(btnSalvar);
+            // Buttons bottom
+            var btnPanel = new Panel { Dock = DockStyle.Bottom, Height = btnPanelHeight, BackColor = Color.Transparent };
+            var flButtons = new FlowLayoutPanel { FlowDirection = FlowDirection.LeftToRight, WrapContents = false, AutoSize = false, Height = 36 };
+            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Height = 36 };
+            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Height = 36 };
+            flButtons.Controls.Add(btnCancelar);
+            flButtons.Controls.Add(btnSalvar);
+            btnPanel.Controls.Add(flButtons);
+            flButtons.Width = btnCancelar.Width + btnSalvar.Width + 12;
+            flButtons.Left = Math.Max(0, (btnPanel.ClientSize.Width - flButtons.Width) / 2);
+            flButtons.Top = Math.Max(0, (btnPanel.Height - flButtons.Height) / 2);
+            flButtons.Anchor = AnchorStyles.None;
 
+            main.Controls.Add(lblTitle);
+            main.Controls.Add(fields);
+            main.Controls.Add(btnPanel);
             frm.Controls.Add(main);
 
-            UIHelpers.StyleTextBox(txtValor);
+            // Apply styling
+            if (txtId != null) { UIHelpers.StyleTextBoxFlat(txtId, 10); UIHelpers.RoundControl(txtId, 10); }
+            UIHelpers.StyleDateTimePicker(dpData, fieldH, 10);
+            UIHelpers.RoundControl(dpData, 10);
+            UIHelpers.StyleTextBoxFlat(txtValor, 10); UIHelpers.RoundControl(txtValor, 10);
+            UIHelpers.StyleComboBox(cbCliente, fieldH, 10); UIHelpers.RoundControl(cbCliente, 10);
+            UIHelpers.StyleComboBox(cbStatus, fieldH, 10); UIHelpers.RoundControl(cbStatus, 10);
+            UIHelpers.RoundControl(main, 10);
             UIHelpers.StyleButton(btnSalvar, AppTheme.PrimaryRed, AppTheme.PrimaryRedHover);
             UIHelpers.StyleButton(btnCancelar, AppTheme.SurfaceAlt, AppTheme.Surface);
-            UIHelpers.RoundControl(main, 8);
-            UIHelpers.RoundControl(btnSalvar, 6);
-            UIHelpers.RoundControl(btnCancelar, 6);
+            UIHelpers.RoundControl(btnSalvar, 10);
+            UIHelpers.RoundControl(btnCancelar, 10);
 
+            // Keep events and logic
             btnCancelar.Click += (_, _) => frm.Close();
 
             btnSalvar.Click += async (_, _) =>

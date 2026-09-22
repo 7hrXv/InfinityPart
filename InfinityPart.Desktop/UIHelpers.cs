@@ -58,7 +58,129 @@ namespace InfinityPart.Desktop
 
                 var propBorder = t.GetProperty("BorderRadius");
                 if (propBorder != null && propBorder.CanWrite)
-                    propBorder.SetValue(txt, 8);
+                    propBorder.SetValue(txt, 10);
+                var propBorderThickness = t.GetProperty("BorderThickness");
+                if (propBorderThickness != null && propBorderThickness.CanWrite)
+                    propBorderThickness.SetValue(txt, 0);
+                var propBorderColor = t.GetProperty("BorderColor");
+                if (propBorderColor != null && propBorderColor.CanWrite)
+                    propBorderColor.SetValue(txt, AppTheme.SurfaceAlt);
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Estiliza um campo de texto "flat": sem borda branca do Windows, fundo #222222 (SurfaceAlt),
+        /// texto branco e cantos arredondados (radius 8-10). Usado nos formulários de Produto e
+        /// Perfil do Administrador para eliminar a borda 3D padrão do TextBox.
+        /// </summary>
+        public static void StyleTextBoxFlat(TextBox txt, int radius = 8)
+        {
+            txt.BorderStyle = BorderStyle.None;
+            txt.BackColor = AppTheme.SurfaceAlt;
+            txt.ForeColor = AppTheme.TextPrimary;
+            txt.Font = AppTheme.FontBody;
+
+            try
+            {
+                var t = txt.GetType();
+                var propPlaceholder = t.GetProperty("PlaceholderForeColor");
+                if (propPlaceholder != null && propPlaceholder.CanWrite)
+                    propPlaceholder.SetValue(txt, AppTheme.TextMuted);
+
+                var propBorder = t.GetProperty("BorderRadius");
+                if (propBorder != null && propBorder.CanWrite)
+                    propBorder.SetValue(txt, 10);
+                // Remove border lines when control supports Guna2 properties
+                var propBorderThickness = t.GetProperty("BorderThickness");
+                if (propBorderThickness != null && propBorderThickness.CanWrite)
+                    propBorderThickness.SetValue(txt, 0);
+
+                var propBorderColor = t.GetProperty("BorderColor");
+                if (propBorderColor != null && propBorderColor.CanWrite)
+                    propBorderColor.SetValue(txt, AppTheme.SurfaceAlt);
+            }
+            catch { }
+
+            RoundControl(txt, radius);
+        }
+
+        public static void StyleComboBox(ComboBox cb, int height = 34, int radius = 10)
+        {
+            cb.BackColor = AppTheme.SurfaceAlt;
+            cb.ForeColor = AppTheme.TextPrimary;
+            cb.Font = AppTheme.FontBody;
+            cb.FlatStyle = FlatStyle.Flat;
+            cb.DropDownStyle = cb.DropDownStyle; // preserve
+            try { cb.Height = height; } catch { }
+            // owner-draw to paint dark background including the dropdown arrow area
+            try
+            {
+                cb.DrawMode = DrawMode.OwnerDrawFixed;
+                cb.DrawItem -= ComboBox_DrawItem;
+                cb.DrawItem += ComboBox_DrawItem;
+            }
+            catch { }
+            RoundControl(cb, radius);
+        }
+
+        private static void ComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (sender is not ComboBox cb) return;
+            var g = e.Graphics;
+            var rect = e.Bounds;
+            // background
+            using var back = new SolidBrush(AppTheme.SurfaceAlt);
+            g.FillRectangle(back, rect);
+
+            // selected state
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                using var sel = new SolidBrush(AppTheme.PrimaryRedDark);
+                g.FillRectangle(sel, rect);
+            }
+
+            // text
+            string text = string.Empty;
+            if (e.Index >= 0 && e.Index < cb.Items.Count)
+                text = cb.GetItemText(cb.Items[e.Index]);
+            else
+                text = cb.Text;
+
+            var textRect = new Rectangle(rect.X + 6, rect.Y, rect.Width - 28, rect.Height);
+            TextRenderer.DrawText(g, text, AppTheme.FontBody, textRect, AppTheme.TextPrimary, TextFormatFlags.VerticalCenter | TextFormatFlags.Left);
+
+            // draw arrow area (right side)
+            var arrowRect = new Rectangle(rect.Right - 20, rect.Y + (rect.Height - 10) / 2, 12, 10);
+            // ensure arrow background matches surface (no white)
+            using var arrowBack = new SolidBrush(AppTheme.SurfaceAlt);
+            g.FillRectangle(arrowBack, new Rectangle(rect.Right - 20, rect.Y, 20, rect.Height));
+            // draw arrow (triangle)
+            Point[] triangle = new Point[] {
+                new Point(arrowRect.Left + 2, arrowRect.Top),
+                new Point(arrowRect.Right - 2, arrowRect.Top),
+                new Point(arrowRect.Left + (arrowRect.Width / 2), arrowRect.Bottom)
+            };
+            using var arrowBrush = new SolidBrush(AppTheme.TextPrimary);
+            g.FillPolygon(arrowBrush, triangle);
+        }
+
+        public static void StyleDateTimePicker(DateTimePicker dp, int height = 34, int radius = 10)
+        {
+            try
+            {
+                dp.Format = DateTimePickerFormat.Short;
+                dp.Width = dp.Width; // preserve width
+                dp.Height = height;
+                dp.CalendarForeColor = AppTheme.TextPrimary;
+                dp.CalendarMonthBackground = AppTheme.SurfaceAlt;
+                dp.CalendarTitleBackColor = AppTheme.SurfaceAlt;
+                dp.CalendarTitleForeColor = AppTheme.TextPrimary;
+                dp.CalendarTrailingForeColor = AppTheme.TextSecondary;
+                dp.BackColor = AppTheme.SurfaceAlt;
+                dp.ForeColor = AppTheme.TextPrimary;
+                dp.Font = AppTheme.FontBody;
+                RoundControl(dp, radius);
             }
             catch { }
         }
@@ -145,7 +267,15 @@ namespace InfinityPart.Desktop
 
                 var propRadius = t.GetProperty("BorderRadius");
                 if (propRadius != null && propRadius.CanWrite)
-                    propRadius.SetValue(btn, 6);
+                    propRadius.SetValue(btn, 10);
+
+                var propBorderThickness = t.GetProperty("BorderThickness");
+                if (propBorderThickness != null && propBorderThickness.CanWrite)
+                    propBorderThickness.SetValue(btn, 0);
+
+                var propBorderColor = t.GetProperty("BorderColor");
+                if (propBorderColor != null && propBorderColor.CanWrite)
+                    propBorderColor.SetValue(btn, AppTheme.SurfaceAlt);
 
                 // HoverState.FillColor
                 var propHover = t.GetProperty("HoverState");

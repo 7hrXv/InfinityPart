@@ -106,10 +106,10 @@ namespace InfinityPart.Desktop
 
             // Rounded search box and buttons
             UIHelpers.RoundControl(searchInner, 10);
-            UIHelpers.RoundControl(btnNovo, 6);
-            UIHelpers.RoundControl(btnEditar, 6);
-            UIHelpers.RoundControl(btnExcluir, 6);
-            UIHelpers.RoundControl(btnAtualizar, 6);
+            UIHelpers.RoundControl(btnNovo, 10);
+            UIHelpers.RoundControl(btnEditar, 10);
+            UIHelpers.RoundControl(btnExcluir, 10);
+            UIHelpers.RoundControl(btnAtualizar, 10);
 
             UIHelpers.StyleGrid(dgv);
             dgv.ScrollBars = ScrollBars.Vertical;
@@ -212,18 +212,98 @@ namespace InfinityPart.Desktop
 
         private void MostrarEditor(ProdutoModel? produto)
         {
-            using var frm = new Form { Width = 520, Height = 420, StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, Text = produto == null ? "Novo Produto" : "Editar Produto" };
+            bool editando = produto != null;
+
+            // Layout constants (ajustados para nunca sobrepor/cortar labels e campos)
+            const int dialogWidth = 560;
+            const int leftX = 24;
+            const int rightX = 300;
+            const int fieldWidthLeft = 220;
+            const int fieldWidthRight = 200;
+            const int labelH = 20;
+            const int gapLabelField = 8;
+            const int fieldH = 34;
+            const int rowSpacing = 26;
+            const int rowUnit = labelH + gapLabelField + fieldH + rowSpacing;
+            const int contentTop = 60;
+            const int btnPanelHeight = 64;
+            const int gapBeforeButtons = 24;
+            const int bottomPadding = 16;
+
+            using var frm = new Form
+            {
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Text = editando ? "Editar Produto" : "Novo Produto"
+            };
+
             var main = new Guna2Panel { Dock = DockStyle.Fill, Padding = new Padding(16), BackColor = Theme.AppTheme.Surface };
-            var lblTitle = new Guna2HtmlLabel { Text = produto == null ? "NOVO PRODUTO" : "EDITAR PRODUTO", Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold) };
+            var lblTitle = new Guna2HtmlLabel { Text = editando ? "EDITAR PRODUTO" : "NOVO PRODUTO", Dock = DockStyle.Top, Height = 36, TextAlign = ContentAlignment.MiddleLeft, ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold) };
 
-            var txtNome = new Guna2TextBox { PlaceholderText = "Nome", Width = 440, Location = new System.Drawing.Point(20, 50) };
-            var txtCodigo = new Guna2TextBox { PlaceholderText = "Código", Width = 440, Location = new System.Drawing.Point(20, 100) };
-            var txtPreco = new Guna2TextBox { PlaceholderText = "Preço", Width = 220, Location = new System.Drawing.Point(20, 150) };
-            var txtQuantidade = new Guna2TextBox { PlaceholderText = "Quantidade em estoque", Width = 200, Location = new System.Drawing.Point(260, 150) };
-            var txtMarcaId = new Guna2TextBox { PlaceholderText = "MarcaId", Width = 440, Location = new System.Drawing.Point(20, 200) };
+            int row = 0;
 
-            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Location = new System.Drawing.Point(220, 260) };
-            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Location = new System.Drawing.Point(380, 260) };
+            // ID (somente leitura) - somente ao editar
+            Guna2HtmlLabel? lblId = null;
+            Guna2TextBox? txtId = null;
+            if (produto != null)
+            {
+                var idY = contentTop + row * rowUnit;
+                lblId = new Guna2HtmlLabel { Text = "ID do Produto", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(leftX, idY), AutoSize = true };
+                txtId = new Guna2TextBox { Text = produto.Id.ToString(), ReadOnly = true, Width = fieldWidthLeft, Height = fieldH, Location = new Point(leftX, idY + labelH + gapLabelField), BackColor = Theme.AppTheme.SurfaceAlt, ForeColor = Color.White };
+                row++;
+            }
+
+            // Nome (esquerda) / Preço (direita)
+            var nomeY = contentTop + row * rowUnit;
+            var lblNome = new Guna2HtmlLabel { Text = "Nome", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(leftX, nomeY), AutoSize = true };
+            var txtNome = new Guna2TextBox { PlaceholderText = "Nome", Width = fieldWidthLeft, Height = fieldH, Location = new Point(leftX, nomeY + labelH + gapLabelField) };
+
+            var lblPreco = new Guna2HtmlLabel { Text = "Preço", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(rightX, nomeY), AutoSize = true };
+            var txtPreco = new Guna2TextBox { PlaceholderText = "Preço", Width = fieldWidthRight, Height = fieldH, Location = new Point(rightX, nomeY + labelH + gapLabelField) };
+            row++;
+
+            // Código (esquerda) / Quantidade em estoque (direita)
+            var codigoY = contentTop + row * rowUnit;
+            var lblCodigo = new Guna2HtmlLabel { Text = "Código", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(leftX, codigoY), AutoSize = true };
+            var txtCodigo = new Guna2TextBox { PlaceholderText = "Código", Width = fieldWidthLeft, Height = fieldH, Location = new Point(leftX, codigoY + labelH + gapLabelField) };
+
+            var lblQuantidade = new Guna2HtmlLabel { Text = "Quantidade em Estoque", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(rightX, codigoY), AutoSize = true };
+            var txtQuantidade = new Guna2TextBox { PlaceholderText = "Quantidade em estoque", Width = fieldWidthRight, Height = fieldH, Location = new Point(rightX, codigoY + labelH + gapLabelField) };
+            row++;
+
+            // MarcaId (largura total)
+            var marcaY = contentTop + row * rowUnit;
+            var lblMarcaId = new Guna2HtmlLabel { Text = "MarcaId", ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Location = new Point(leftX, marcaY), AutoSize = true };
+            var txtMarcaId = new Guna2TextBox { PlaceholderText = "MarcaId", Width = dialogWidth - leftX * 2, Height = fieldH, Location = new Point(leftX, marcaY + labelH + gapLabelField) };
+            row++;
+
+            // Altura do diálogo calculada dinamicamente para nunca cortar campos/botões
+            var marcaFieldBottom = marcaY + labelH + gapLabelField + fieldH;
+            var clientHeight = marcaFieldBottom + gapBeforeButtons + btnPanelHeight + bottomPadding;
+            frm.ClientSize = new Size(dialogWidth, clientHeight);
+
+            // Painel de botões (Salvar/Cancelar) usando FlowLayoutPanel: garante que os botões
+            // fiquem sempre totalmente visíveis e alinhados, independente de paddings internos.
+            var btnPanel = new Guna2Panel { Dock = DockStyle.Bottom, Height = btnPanelHeight, BackColor = Color.Transparent };
+            var btnCancelar = new Guna2Button { Text = "Cancelar", Width = 140, Height = 36 };
+            var btnSalvar = new Guna2Button { Text = "Salvar", Width = 140, Height = 36 };
+
+            var flBtnEditor = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Right,
+                FlowDirection = FlowDirection.LeftToRight,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                WrapContents = false,
+                Padding = new Padding(0, (btnPanelHeight - 36) / 2, 16, 0)
+            };
+            btnCancelar.Margin = new Padding(0, 0, 12, 0);
+            btnSalvar.Margin = new Padding(0);
+            flBtnEditor.Controls.Add(btnCancelar);
+            flBtnEditor.Controls.Add(btnSalvar);
+            btnPanel.Controls.Add(flBtnEditor);
 
             // preencher valores se editar
             if (produto != null)
@@ -236,27 +316,45 @@ namespace InfinityPart.Desktop
             }
 
             main.Controls.Add(lblTitle);
+            if (produto != null)
+            {
+                main.Controls.Add(lblId!);
+                main.Controls.Add(txtId!);
+            }
+            main.Controls.Add(lblNome);
             main.Controls.Add(txtNome);
+            main.Controls.Add(lblCodigo);
             main.Controls.Add(txtCodigo);
+            main.Controls.Add(lblPreco);
             main.Controls.Add(txtPreco);
+            main.Controls.Add(lblQuantidade);
             main.Controls.Add(txtQuantidade);
+            main.Controls.Add(lblMarcaId);
             main.Controls.Add(txtMarcaId);
-            main.Controls.Add(btnCancelar);
-            main.Controls.Add(btnSalvar);
+            main.Controls.Add(btnPanel);
 
             frm.Controls.Add(main);
 
-            // estilos
-            UIHelpers.StyleTextBox(txtNome);
-            UIHelpers.StyleTextBox(txtCodigo);
-            UIHelpers.StyleTextBox(txtPreco);
-            UIHelpers.StyleTextBox(txtQuantidade);
-            UIHelpers.StyleTextBox(txtMarcaId);
+            // Estilos: sem borda branca, fundo #222222, texto branco, cantos arredondados (8)
+            foreach (Control c in new Control[] { txtNome, txtCodigo, txtPreco, txtQuantidade, txtMarcaId, txtId! })
+            {
+                if (c is Guna2TextBox tb)
+                {
+                    UIHelpers.StyleTextBoxFlat(tb, 10);
+                }
+            }
+
+            // Validações de digitação (não alteram a lógica de gravação existente)
+            Validacoes.SomenteLetras(txtNome);
+            Validacoes.SomenteDecimal(txtPreco);
+            Validacoes.SomenteNumeros(txtQuantidade);
+            Validacoes.SomenteNumeros(txtMarcaId);
+
             UIHelpers.StyleButton(btnSalvar, AppTheme.PrimaryRed, AppTheme.PrimaryRedHover);
             UIHelpers.StyleButton(btnCancelar, AppTheme.SurfaceAlt, AppTheme.Surface);
-            UIHelpers.RoundControl(main, 8);
-            UIHelpers.RoundControl(btnSalvar, 6);
-            UIHelpers.RoundControl(btnCancelar, 6);
+            UIHelpers.RoundControl(btnSalvar, 10);
+            UIHelpers.RoundControl(btnCancelar, 10);
+            UIHelpers.RoundControl(main, 10);
 
             btnCancelar.Click += (_, _) => frm.Close();
 
@@ -264,6 +362,37 @@ namespace InfinityPart.Desktop
             {
                 try
                 {
+                    // Validações obrigatórias antes de salvar (Novo/Editar)
+                    if (!Validacoes.ObrigatorioPreenchido(txtNome.Text) || !Validacoes.SomenteLetrasTexto(txtNome.Text))
+                    {
+                        Validacoes.MostrarErro("Informe um Nome válido (somente letras e espaços).");
+                        return;
+                    }
+
+                    if (!Validacoes.ObrigatorioPreenchido(txtCodigo.Text))
+                    {
+                        Validacoes.MostrarErro("O campo Código é obrigatório.");
+                        return;
+                    }
+
+                    if (!Validacoes.DecimalValido(txtPreco.Text, out var precoValidado) || precoValidado < 0)
+                    {
+                        Validacoes.MostrarErro("Informe um Preço válido (número, podendo ter decimais).");
+                        return;
+                    }
+
+                    if (!Validacoes.InteiroValido(txtQuantidade.Text, out var quantidadeValidada) || quantidadeValidada < 0)
+                    {
+                        Validacoes.MostrarErro("Informe uma Quantidade em Estoque válida (somente números inteiros).");
+                        return;
+                    }
+
+                    if (!Validacoes.InteiroValido(txtMarcaId.Text, out var marcaIdValidado) || marcaIdValidado <= 0)
+                    {
+                        Validacoes.MostrarErro("Informe um MarcaId válido (somente números).");
+                        return;
+                    }
+
                     if (produto == null)
                     {
                         var criar = new CriarProdutoModel
