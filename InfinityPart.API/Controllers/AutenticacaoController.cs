@@ -11,7 +11,8 @@ public class AutenticacaoController : ControllerBase
 {
     private readonly IAutenticacaoService _autenticacaoService;
 
-    public AutenticacaoController(IAutenticacaoService autenticacaoService)
+    public AutenticacaoController(
+        IAutenticacaoService autenticacaoService)
     {
         _autenticacaoService = autenticacaoService;
     }
@@ -23,10 +24,13 @@ public class AutenticacaoController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginDto dto)
     {
-        var resultado = _autenticacaoService.Autenticar(dto);
+        var resultado =
+            _autenticacaoService.Autenticar(dto);
 
         if (!resultado.Autenticado)
+        {
             return Unauthorized(resultado);
+        }
 
         return Ok(resultado);
     }
@@ -36,12 +40,16 @@ public class AutenticacaoController : ControllerBase
     // =========================================================
 
     [HttpPost("login-cliente")]
-    public IActionResult LoginCliente([FromBody] LoginDto dto)
+    public IActionResult LoginCliente(
+        [FromBody] LoginDto dto)
     {
-        var resultado = _autenticacaoService.AutenticarCliente(dto);
+        var resultado =
+            _autenticacaoService.AutenticarCliente(dto);
 
         if (!resultado.Autenticado)
+        {
             return Unauthorized(resultado);
+        }
 
         return Ok(resultado);
     }
@@ -51,7 +59,8 @@ public class AutenticacaoController : ControllerBase
     // =========================================================
 
     [HttpPost("definir-senha")]
-    public IActionResult DefinirSenha([FromBody] DefinirSenhaDto dto)
+    public IActionResult DefinirSenha(
+        [FromBody] DefinirSenhaDto dto)
     {
         try
         {

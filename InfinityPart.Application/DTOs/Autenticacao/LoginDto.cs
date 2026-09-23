@@ -1,9 +1,9 @@
 namespace InfinityPart.Application.DTOs.Autenticacao;
 
 /// <summary>
-/// Credenciais enviadas pelo cliente (Desktop/Web) para autenticação.
-/// O identificador aceita nome de usuário, e-mail ou CPF, conforme a
-/// estrutura atual da entidade Administrador.
+/// Credenciais utilizadas para autenticação.
+/// Para administrador, o identificador pode ser usuário, e-mail ou CPF.
+/// Para cliente, o identificador será o e-mail.
 /// </summary>
 public class LoginDto
 {

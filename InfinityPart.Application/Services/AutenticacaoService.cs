@@ -35,18 +35,32 @@ public class AutenticacaoService : IAutenticacaoService
     public LoginResultadoDto Autenticar(LoginDto dto)
     {
         if (dto == null)
-            return LoginResultadoDto.Falha(MensagemCredenciaisInvalidas);
+        {
+            return LoginResultadoDto.Falha(
+                MensagemCredenciaisInvalidas
+            );
+        }
 
-        var identificador = dto.Identificador?.Trim() ?? string.Empty;
+        var identificador = dto.Identificador?.Trim()
+            ?? string.Empty;
 
-        if (identificador.Length == 0 || string.IsNullOrEmpty(dto.Senha))
-            return LoginResultadoDto.Falha("Informe usuário e senha.");
+        if (string.IsNullOrWhiteSpace(identificador) ||
+            string.IsNullOrWhiteSpace(dto.Senha))
+        {
+            return LoginResultadoDto.Falha(
+                "Informe usuário e senha."
+            );
+        }
 
         var administrador =
             _administradorRepository.ObterPorLogin(identificador);
 
         if (administrador == null)
-            return LoginResultadoDto.Falha(MensagemCredenciaisInvalidas);
+        {
+            return LoginResultadoDto.Falha(
+                MensagemCredenciaisInvalidas
+            );
+        }
 
         if (!administrador.Ativo)
         {
@@ -73,11 +87,17 @@ public class AutenticacaoService : IAutenticacaoService
         );
 
         if (verificacao == ResultadoVerificacaoSenha.Invalida)
-            return LoginResultadoDto.Falha(MensagemCredenciaisInvalidas);
-
-        if (verificacao == ResultadoVerificacaoSenha.ValidaRequerNovoHash)
         {
-            administrador.SenhaHash = _senhaHasher.GerarHash(dto.Senha);
+            return LoginResultadoDto.Falha(
+                MensagemCredenciaisInvalidas
+            );
+        }
+
+        if (verificacao ==
+            ResultadoVerificacaoSenha.ValidaRequerNovoHash)
+        {
+            administrador.SenhaHash =
+                _senhaHasher.GerarHash(dto.Senha);
         }
 
         administrador.RegistrarAcesso();
@@ -106,21 +126,33 @@ public class AutenticacaoService : IAutenticacaoService
     public LoginResultadoDto AutenticarCliente(LoginDto dto)
     {
         if (dto == null)
-            return LoginResultadoDto.Falha("Informe usuário e senha.");
+        {
+            return LoginResultadoDto.Falha(
+                "Informe usuário e senha."
+            );
+        }
 
-        var identificador = dto.Identificador?.Trim() ?? string.Empty;
+        // Para cliente, o Identificador será o e-mail.
+        var identificador = dto.Identificador?.Trim()
+            ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(identificador) ||
-            string.IsNullOrEmpty(dto.Senha))
+            string.IsNullOrWhiteSpace(dto.Senha))
         {
-            return LoginResultadoDto.Falha("Informe usuário e senha.");
+            return LoginResultadoDto.Falha(
+                "Informe usuário e senha."
+            );
         }
 
         var cliente =
             _clienteRepository.ObterPorLogin(identificador);
 
         if (cliente == null)
-            return LoginResultadoDto.Falha(MensagemCredenciaisInvalidas);
+        {
+            return LoginResultadoDto.Falha(
+                MensagemCredenciaisInvalidas
+            );
+        }
 
         var verificacao = _senhaHasher.Verificar(
             cliente.SenhaHash,
@@ -128,11 +160,17 @@ public class AutenticacaoService : IAutenticacaoService
         );
 
         if (verificacao == ResultadoVerificacaoSenha.Invalida)
-            return LoginResultadoDto.Falha(MensagemCredenciaisInvalidas);
-
-        if (verificacao == ResultadoVerificacaoSenha.ValidaRequerNovoHash)
         {
-            cliente.SenhaHash = _senhaHasher.GerarHash(dto.Senha);
+            return LoginResultadoDto.Falha(
+                MensagemCredenciaisInvalidas
+            );
+        }
+
+        if (verificacao ==
+            ResultadoVerificacaoSenha.ValidaRequerNovoHash)
+        {
+            cliente.SenhaHash =
+                _senhaHasher.GerarHash(dto.Senha);
 
             _clienteRepository.Atualizar(cliente);
         }
@@ -161,10 +199,16 @@ public class AutenticacaoService : IAutenticacaoService
     public void DefinirSenha(DefinirSenhaDto dto)
     {
         if (dto == null)
-            throw new ValidacaoException("Dados inválidos.");
+        {
+            throw new ValidacaoException(
+                "Dados inválidos."
+            );
+        }
 
         var administrador =
-            _administradorRepository.ObterPorId(dto.AdministradorId)
+            _administradorRepository.ObterPorId(
+                dto.AdministradorId
+            )
             ?? throw new RecursoNaoEncontradoException(
                 "Administrador não encontrado."
             );
@@ -173,20 +217,25 @@ public class AutenticacaoService : IAutenticacaoService
 
         if (administrador.PossuiSenhaDefinida)
         {
-            if (string.IsNullOrEmpty(dto.SenhaAtual))
+            if (string.IsNullOrWhiteSpace(dto.SenhaAtual))
+            {
                 throw new ValidacaoException(
                     "Informe a senha atual."
                 );
+            }
 
             var verificacao = _senhaHasher.Verificar(
                 administrador.SenhaHash,
                 dto.SenhaAtual
             );
 
-            if (verificacao == ResultadoVerificacaoSenha.Invalida)
+            if (verificacao ==
+                ResultadoVerificacaoSenha.Invalida)
+            {
                 throw new ValidacaoException(
                     "A senha atual está incorreta."
                 );
+            }
         }
 
         administrador.SenhaHash =
@@ -202,9 +251,11 @@ public class AutenticacaoService : IAutenticacaoService
     public static void ValidarSenha(string? senha)
     {
         if (string.IsNullOrWhiteSpace(senha))
+        {
             throw new ValidacaoException(
                 "A senha é obrigatória."
             );
+        }
 
         if (senha.Length < TamanhoMinimoSenha)
         {

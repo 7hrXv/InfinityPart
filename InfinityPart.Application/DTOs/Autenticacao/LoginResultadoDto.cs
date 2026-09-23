@@ -15,23 +15,34 @@ public class LoginResultadoDto
 
     public ClienteDto? Cliente { get; set; }
 
-    public static LoginResultadoDto Falha(string mensagem) => new()
+    public static LoginResultadoDto Falha(string mensagem)
     {
-        Autenticado = false,
-        Mensagem = mensagem
-    };
+        return new LoginResultadoDto
+        {
+            Autenticado = false,
+            Mensagem = mensagem
+        };
+    }
 
-    public static LoginResultadoDto Sucesso(AdministradorDto administrador) => new()
+    public static LoginResultadoDto Sucesso(
+        AdministradorDto administrador)
     {
-        Autenticado = true,
-        Mensagem = "Administrador autenticado com sucesso.",
-        Administrador = administrador
-    };
+        return new LoginResultadoDto
+        {
+            Autenticado = true,
+            Mensagem = "Administrador autenticado com sucesso.",
+            Administrador = administrador
+        };
+    }
 
-    public static LoginResultadoDto Sucesso(ClienteDto cliente) => new()
+    public static LoginResultadoDto Sucesso(
+        ClienteDto cliente)
     {
-        Autenticado = true,
-        Mensagem = "Cliente autenticado com sucesso.",
-        Cliente = cliente
-    };
+        return new LoginResultadoDto
+        {
+            Autenticado = true,
+            Mensagem = "Cliente autenticado com sucesso.",
+            Cliente = cliente
+        };
+    }
 }
