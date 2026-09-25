@@ -23,6 +23,7 @@ public class ProdutoService : IProdutoService
             Descricao = dto.Descricao,
             Preco = dto.Preco,
             QuantidadeEstoque = dto.QuantidadeEstoque,
+            Image = dto.Image,
             MarcaId = dto.MarcaId
         };
 
@@ -74,6 +75,7 @@ public class ProdutoService : IProdutoService
         produto.Descricao = dto.Descricao;
         produto.Preco = dto.Preco;
         produto.QuantidadeEstoque = dto.QuantidadeEstoque;
+        produto.Image = dto.Image;
         produto.MarcaId = dto.MarcaId;
 
         _produtoRepository.Atualizar(produto);
@@ -103,6 +105,7 @@ public class ProdutoService : IProdutoService
             Descricao = produto.Descricao,
             Preco = produto.Preco,
             QuantidadeEstoque = produto.QuantidadeEstoque,
+            Image = produto.Image,
             MarcaId = produto.MarcaId
         };
     }

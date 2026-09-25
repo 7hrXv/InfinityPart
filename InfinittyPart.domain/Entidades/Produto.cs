@@ -14,6 +14,9 @@ public class Produto
 
     public int QuantidadeEstoque { get; set; }
 
+    // Imagem do produto
+    public string? Image { get; set; }
+
     // Relacionamento com Marca
     public int MarcaId { get; set; }
 

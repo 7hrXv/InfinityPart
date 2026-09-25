@@ -12,5 +12,7 @@ public class CriarProdutoDto
 
     public int QuantidadeEstoque { get; set; }
 
+    public string? Image { get; set; }
+
     public int MarcaId { get; set; }
 }
