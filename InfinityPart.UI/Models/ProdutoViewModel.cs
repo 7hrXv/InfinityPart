@@ -1,4 +1,5 @@
-﻿namespace InfinityPart.UI.Models;
+﻿
+namespace InfinityPart.UI.Models;
 
 public class ProdutoViewModel
 {
@@ -14,5 +15,5 @@ public class ProdutoViewModel
 
     public int QuantidadeEstoque { get; set; }
 
-   
+    public string? Image { get; set; }
 }

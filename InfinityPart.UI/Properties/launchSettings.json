@@ -1,20 +1,12 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "http": {
+    "InfinityPart.UI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
+      "launchUrl": "index.html",
       "applicationUrl": "http://localhost:5077",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7171;http://localhost:5077",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

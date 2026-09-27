@@ -1,4 +1,5 @@
 ﻿using InfinityPart.Application.DTOs.Clientes;
+using InfinityPart.Application.Exceptions;
 using InfinityPart.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,6 @@ public class ClienteController : ControllerBase
         _clienteService = clienteService;
     }
 
-    // GET: api/Cliente
     [HttpGet]
     public IActionResult Listar()
     {
@@ -24,7 +24,6 @@ public class ClienteController : ControllerBase
         return Ok(clientes);
     }
 
-    // GET: api/Cliente/5
     [HttpGet("{id:int}")]
     public IActionResult BuscarPorId(int id)
     {
@@ -36,43 +35,75 @@ public class ClienteController : ControllerBase
         return Ok(cliente);
     }
 
-    // POST: api/Cliente
     [HttpPost]
-    public async Task<IActionResult> Criar([FromBody] CriarClienteDto dto)
+    public async Task<IActionResult> Criar(
+        [FromBody] CriarClienteDto dto)
     {
-        var cliente = await _clienteService.CriarAsync(dto);
+        try
+        {
+            var cliente =
+                await _clienteService.CriarAsync(dto);
 
-        return CreatedAtAction(
-            nameof(BuscarPorId),
-            new { id = cliente.Id },
-            cliente);
+            return CreatedAtAction(
+                nameof(BuscarPorId),
+                new { id = cliente.Id },
+                cliente
+            );
+        }
+        catch (ValidacaoException ex)
+        {
+            return BadRequest(new
+            {
+                mensagem = ex.Message
+            });
+        }
     }
 
-    // PUT: api/Cliente/5
     [HttpPut("{id:int}")]
     public IActionResult Atualizar(
         int id,
         [FromBody] AtualizarClienteDto dto)
     {
-        dto.Id = id;
+        try
+        {
+            dto.Id = id;
 
-        var cliente = _clienteService.Atualizar(dto);
+            var cliente =
+                _clienteService.Atualizar(dto);
 
-        if (cliente == null)
-            return NotFound();
+            if (cliente == null)
+                return NotFound();
 
-        return Ok(cliente);
+            return Ok(cliente);
+        }
+        catch (ValidacaoException ex)
+        {
+            return BadRequest(new
+            {
+                mensagem = ex.Message
+            });
+        }
     }
 
-    // DELETE: api/Cliente/5
     [HttpDelete("{id:int}")]
     public IActionResult Remover(int id)
     {
-        var removido = _clienteService.Remover(id);
+        try
+        {
+            var removido =
+                _clienteService.Remover(id);
 
-        if (!removido)
-            return NotFound();
+            if (!removido)
+                return NotFound();
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (ValidacaoException ex)
+        {
+            return BadRequest(new
+            {
+                mensagem = ex.Message
+            });
+        }
     }
 }

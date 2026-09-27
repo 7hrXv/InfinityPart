@@ -2,10 +2,16 @@ using InfinityPart.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// =====================================================
 // MVC
+// =====================================================
+
 builder.Services.AddControllersWithViews();
 
-// Conexão da UI com a API
+// =====================================================
+// CONEXÃO DA UI COM A API
+// =====================================================
+
 builder.Services.AddHttpClient<ApiService>(client =>
 {
     client.BaseAddress = new Uri(
@@ -13,27 +19,46 @@ builder.Services.AddHttpClient<ApiService>(client =>
     );
 });
 
+// =====================================================
+// BUILD
+// =====================================================
+
 var app = builder.Build();
 
-// Configurações do ambiente
+// =====================================================
+// CONFIGURAÇÕES DO AMBIENTE
+// =====================================================
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// =====================================================
+// ARQUIVOS ESTÁTICOS
+// =====================================================
+
+app.UseStaticFiles();
+
+// =====================================================
+// ROTEAMENTO
+// =====================================================
 
 app.UseRouting();
 
+// =====================================================
+// AUTORIZAÇÃO
+// =====================================================
+
 app.UseAuthorization();
 
-app.MapStaticAssets();
+// =====================================================
+// ROTA PADRÃO
+// =====================================================
 
-// Rota padrão
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

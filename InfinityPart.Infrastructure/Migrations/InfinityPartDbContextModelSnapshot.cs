@@ -17,7 +17,7 @@ namespace InfinityPart.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -121,6 +121,11 @@ namespace InfinityPart.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -131,10 +136,18 @@ namespace InfinityPart.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Complemento")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -316,6 +329,33 @@ namespace InfinityPart.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StatusPedidos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Pendente"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Processando"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Enviado"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Entregue"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "Cancelado"
+                        });
                 });
 
             modelBuilder.Entity("InfinittyPart.Domain.Entidades.ItemPedido", b =>

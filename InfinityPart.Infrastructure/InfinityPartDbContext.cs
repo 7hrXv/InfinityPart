@@ -5,7 +5,8 @@ namespace InfinityPart.Infrastructure;
 
 public class InfinityPartDbContext : DbContext
 {
-    public InfinityPartDbContext(DbContextOptions<InfinityPartDbContext> options)
+    public InfinityPartDbContext(
+        DbContextOptions<InfinityPartDbContext> options)
         : base(options)
     {
     }
@@ -24,18 +25,18 @@ public class InfinityPartDbContext : DbContext
 
     public DbSet<StatusPedido> StatusPedidos { get; set; }
 
-    // Adiciona DbSets para entidades que são usadas pelos repositórios
-   
-
     public DbSet<Auditoria> Auditorias { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // =========================
+
+        // =====================================================
         // ADMINISTRADOR
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<Administrador>()
             .Property(a => a.Nome)
@@ -56,7 +57,6 @@ public class InfinityPartDbContext : DbContext
             .Property(a => a.Telefone)
             .HasMaxLength(20);
 
-        // Hash da senha (PBKDF2). Nunca armazenar senha em texto puro.
         modelBuilder.Entity<Administrador>()
             .Property(a => a.SenhaHash)
             .IsRequired()
@@ -75,9 +75,9 @@ public class InfinityPartDbContext : DbContext
             .HasIndex(a => a.Email);
 
 
-        // =========================
+        // =====================================================
         // CLIENTE
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<Cliente>()
             .Property(c => c.Nome)
@@ -99,6 +99,15 @@ public class InfinityPartDbContext : DbContext
             .HasMaxLength(20);
 
         modelBuilder.Entity<Cliente>()
+            .Property(c => c.SenhaHash)
+            .IsRequired()
+            .HasMaxLength(500);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(c => c.DataNascimento)
+            .IsRequired();
+
+        modelBuilder.Entity<Cliente>()
             .Property(c => c.Cep)
             .HasMaxLength(10);
 
@@ -111,6 +120,14 @@ public class InfinityPartDbContext : DbContext
             .HasMaxLength(20);
 
         modelBuilder.Entity<Cliente>()
+            .Property(c => c.Complemento)
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(c => c.Bairro)
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Cliente>()
             .Property(c => c.Cidade)
             .HasMaxLength(100);
 
@@ -118,15 +135,10 @@ public class InfinityPartDbContext : DbContext
             .Property(c => c.Estado)
             .HasMaxLength(2);
 
-        modelBuilder.Entity<Cliente>()
-           .Property(c => c.SenhaHash)
-           .IsRequired()
-           .HasMaxLength(500);
 
-
-        // =========================
+        // =====================================================
         // MARCA
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<Marca>()
             .Property(m => m.Nome)
@@ -138,9 +150,9 @@ public class InfinityPartDbContext : DbContext
             .HasMaxLength(18);
 
 
-        // =========================
+        // =====================================================
         // PRODUTO
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<Produto>()
             .Property(p => p.Nome)
@@ -161,7 +173,10 @@ public class InfinityPartDbContext : DbContext
             .HasPrecision(18, 2);
 
 
-        // Produto -> Marca
+        // =====================================================
+        // PRODUTO -> MARCA
+        // =====================================================
+
         modelBuilder.Entity<Produto>()
             .HasOne(p => p.Marca)
             .WithMany(m => m.Produtos)
@@ -169,9 +184,9 @@ public class InfinityPartDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
 
-        // =========================
+        // =====================================================
         // STATUS DO PEDIDO
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<StatusPedido>()
             .Property(s => s.Nome)
@@ -179,16 +194,57 @@ public class InfinityPartDbContext : DbContext
             .HasMaxLength(50);
 
 
-        // =========================
+        // =====================================================
+        // STATUS INICIAIS DO SISTEMA
+        // =====================================================
+
+        modelBuilder.Entity<StatusPedido>()
+            .HasData(
+                new StatusPedido
+                {
+                    Id = 1,
+                    Nome = "Pendente"
+                },
+
+                new StatusPedido
+                {
+                    Id = 2,
+                    Nome = "Processando"
+                },
+
+                new StatusPedido
+                {
+                    Id = 3,
+                    Nome = "Enviado"
+                },
+
+                new StatusPedido
+                {
+                    Id = 4,
+                    Nome = "Entregue"
+                },
+
+                new StatusPedido
+                {
+                    Id = 5,
+                    Nome = "Cancelado"
+                }
+            );
+
+
+        // =====================================================
         // PEDIDO
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<Pedido>()
             .Property(p => p.ValorTotal)
             .HasPrecision(18, 2);
 
 
-        // Cliente -> Pedidos
+        // =====================================================
+        // CLIENTE -> PEDIDOS
+        // =====================================================
+
         modelBuilder.Entity<Pedido>()
             .HasOne(p => p.Cliente)
             .WithMany(c => c.Pedidos)
@@ -196,7 +252,10 @@ public class InfinityPartDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
 
-        // StatusPedido -> Pedidos
+        // =====================================================
+        // STATUS PEDIDO -> PEDIDOS
+        // =====================================================
+
         modelBuilder.Entity<Pedido>()
             .HasOne(p => p.StatusPedido)
             .WithMany(s => s.Pedidos)
@@ -204,16 +263,19 @@ public class InfinityPartDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
 
-        // =========================
+        // =====================================================
         // ITEM DO PEDIDO
-        // =========================
+        // =====================================================
 
         modelBuilder.Entity<ItemPedido>()
             .Property(i => i.PrecoUnitario)
             .HasPrecision(18, 2);
 
 
-        // Pedido -> ItensPedido
+        // =====================================================
+        // PEDIDO -> ITENS
+        // =====================================================
+
         modelBuilder.Entity<ItemPedido>()
             .HasOne(i => i.Pedido)
             .WithMany(p => p.Itens)
@@ -221,7 +283,10 @@ public class InfinityPartDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
 
-        // Produto -> ItensPedido
+        // =====================================================
+        // PRODUTO -> ITENS
+        // =====================================================
+
         modelBuilder.Entity<ItemPedido>()
             .HasOne(i => i.Produto)
             .WithMany(p => p.ItensPedido)

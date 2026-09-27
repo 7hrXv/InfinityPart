@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+(function () {
+            try {
+                var t = localStorage.getItem('ip_theme');
+
+                if (t === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {}
+})();
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Suporte | Infinity Parts</title>
+
+    <meta name="description"
+          content="Fale com a Infinity Parts: suporte, garantia, trocas e devoluções.">
+
+    <link rel="icon"
+          href="assets/icons/favicon-256.png"
+          type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-main">
+
+            <button class="menu-toggle"
+                    id="menu-toggle"
+                    aria-label="Abrir menu">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <a href="index.html" class="logo">
+
+                <img src="assets/icons/logo-infinity.png"
+                     alt="Infinity Parts"
+                     class="logo-mark">
+
+                <span class="logo-text">
+                    INFINITY<span>PARTS</span>
+                </span>
+
+            </a>
+
+            <div class="search-wrapper">
+
+                <form class="search-form"
+                      id="search-form"
+                      role="search">
+
+                    <input type="text"
+                           id="search-input"
+                           placeholder="Buscar peças, marcas ou modelos..."
+                           aria-label="Buscar produtos"
+                           autocomplete="off">
+
+                    <button type="submit"
+                            aria-label="Buscar">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                </form>
+
+                <div class="search-suggestions"
+                     id="search-suggestions"></div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <a href="login.html"
+                   class="header-action">
+                    <i class="bi bi-person"></i>
+                    <span>Conta</span>
+                </a>
+
+                <a href="favoritos.html"
+                   class="header-action">
+                    <i class="bi bi-heart"></i>
+                    <span>Favoritos</span>
+
+                    <span class="action-badge"
+                          id="fav-count">
+                        0
+                    </span>
+
+                </a>
+
+                <a href="carrinho.html"
+                   class="header-action">
+                    <i class="bi bi-cart3"></i>
+                    <span>Carrinho</span>
+
+                    <span class="action-badge"
+                          id="cart-count">
+                        0
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <nav class="main-nav-bar">
+
+            <div class="container">
+
+                <ul class="main-nav"
+                    id="main-nav">
+
+                    <li>
+                        <a href="index.html">
+                            Início
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo">
+                            Hardware
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="produtos.html?categoria=Teclado">
+                            Periféricos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="produtos.html">
+                            PC Gamer
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="produtos.html?categoria=Cabos%20e%20Adaptadores">
+                            Acessórios
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="produtos.html">
+                            Ofertas
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="suporte.html"
+                           class="active">
+                            Suporte
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <div class="container"
+             style="padding: 30px 0 70px;">
+
+            <nav class="breadcrumb">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <span class="sep">
+                    /
+                </span>
+
+                <span class="current">
+                    Suporte
+                </span>
+
+            </nav>
+
+
+            <h1 class="page-title"
+                style="margin-bottom:10px;">
+                Central de Suporte
+            </h1>
+
+
+            <p class="section-sub"
+               style="margin-bottom:34px;">
+                Estamos aqui para ajudar você a montar o setup ideal.
+            </p>
+
+
+            <div class="support-grid">
+
+
+                <div class="support-card">
+
+                    <i class="bi bi-chat-dots"></i>
+
+                    <h3>
+                        Fale Conosco
+                    </h3>
+
+                    <p>
+                        Tire dúvidas sobre produtos, pedidos e compatibilidade
+                        com nossa equipe especializada.
+                    </p>
+
+                    <button class="btn btn-outline btn-sm"
+                            style="margin-top:16px;"
+                            id="support-whatsapp">
+
+                        <i class="bi bi-whatsapp"></i>
+
+                        CHAMAR NO WHATSAPP
+
+                    </button>
+
+                </div>
+
+
+                <div class="support-card">
+
+                    <i class="bi bi-patch-check"></i>
+
+                    <h3>
+                        Garantia
+                    </h3>
+
+                    <p>
+                        Todos os produtos possuem garantia de fábrica.
+                        Consulte o prazo de cada item na página do produto.
+                    </p>
+
+                </div>
+
+
+                <div class="support-card">
+
+                    <i class="bi bi-arrow-repeat"></i>
+
+                    <h3>
+                        Trocas e Devoluções
+                    </h3>
+
+                    <p>
+                        Você tem até 7 dias corridos após o recebimento
+                        para solicitar troca ou devolução, conforme o CDC.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="auth-wrapper"
+                 style="max-width: 640px; margin-top: 50px;">
+
+                <h1 style="font-size:22px;">
+                    Envie sua mensagem
+                </h1>
+
+
+                <form id="contact-form">
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="contact-nome">
+                                Nome
+                            </label>
+
+                            <input type="text"
+                                   id="contact-nome"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="contact-email">
+                                E-mail
+                            </label>
+
+                            <input type="email"
+                                   id="contact-email"
+                                   required>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="contact-assunto">
+                            Assunto
+                        </label>
+
+                        <input type="text"
+                               id="contact-assunto"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="contact-mensagem">
+                            Mensagem
+                        </label>
+
+                        <textarea id="contact-mensagem"
+                                  rows="5"
+                                  required></textarea>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="btn btn-primary btn-block">
+                        ENVIAR MENSAGEM
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="container footer-bottom"
+             style="border-top:none;">
+
+            <span>
+
+                &copy;
+
+                <span class="current-year">
+                    2026
+                </span>
+
+                Infinity Parts.
+                Todos os direitos reservados.
+
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <button class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Alternar tema claro/escuro"
+            title="Alternar tema claro/escuro">
+
+        <span class="theme-track">
+
+            <i class="bi bi-sun-fill theme-icon-sun"></i>
+
+            <i class="bi bi-moon-stars-fill theme-icon-moon"></i>
+
+            <span class="theme-thumb"></span>
+
+        </span>
+
+    </button>
+
+
+    <button class="whatsapp-float"
+            id="whatsapp-btn"
+            aria-label="Falar no WhatsApp">
+
+        <i class="bi bi-whatsapp"></i>
+
+    </button>
+
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <script>
+const supportWhatsapp = document.getElementById('support-whatsapp');
+
+if (supportWhatsapp) {
+            supportWhatsapp.addEventListener('click', function () {
+
+                const whatsappButton = document.getElementById('whatsapp-btn');
+
+                if (whatsappButton) {
+                    whatsappButton.click();
+                }
+
+            });
+}
+
+
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm instanceof HTMLFormElement) {
+
+            contactForm.addEventListener('submit', function (event) {
+
+                event.preventDefault();
+
+                alert('Mensagem enviada! Responderemos em breve.');
+
+                contactForm.reset();
+
+            });
+
+}
+    </script>
+
+
+</body>
+</html>

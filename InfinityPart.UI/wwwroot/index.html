@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <script>
+(function(){
+                  try {
+                    var t = localStorage.getItem('ip_theme');
+
+                    if(t === 'light'){
+                      document.documentElement.setAttribute(
+                        'data-theme',
+                        'light'
+                      );
+                    }
+                  } catch(e){}
+})();
+    </script>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Infinity Parts | Peças e Hardware para PC Gamer</title>
+
+    <meta name="description"
+          content="Encontre placas de vídeo, processadores, memórias, SSDs, fontes, gabinetes e periféricos na Infinity Parts.">
+
+    <meta name="keywords"
+          content="hardware, peças de pc, placa de vídeo, processador, periféricos, pc gamer, infinity parts">
+
+    <meta property="og:title"
+          content="Infinity Parts | Peças e Hardware para PC Gamer">
+
+    <meta property="og:description"
+          content="Componentes selecionados para quem exige desempenho.">
+
+    <meta property="og:type"
+          content="website">
+
+    <link rel="icon"
+          href="assets/icons/favicon-256.png"
+          type="image/png">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <link rel="stylesheet"
+          href="css/components.css">
+
+    <link rel="stylesheet"
+          href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- =========================================================
+         TOP BAR
+    ========================================================= -->
+
+    <div class="top-bar">
+
+        <div class="container">
+
+            <span>
+                Frete grátis para compras acima de R$ 499
+            </span>
+
+            <div class="top-bar-links">
+
+                <a href="suporte.html">
+                    Suporte
+                </a>
+
+                <a href="minha-conta.html" id="top-account-link">
+                    Minha Conta
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <header class="site-header">
+
+        <div class="container header-main">
+
+            <button class="menu-toggle"
+                    id="menu-toggle"
+                    aria-label="Abrir menu">
+                <i class="bi bi-list"></i>
+            </button>
+
+
+            <!-- LOGO -->
+
+            <a href="index.html"
+               class="logo">
+
+                <img src="assets/icons/logo-infinity.png"
+                     alt="Infinity Parts"
+                     class="logo-mark">
+
+                <span class="logo-text">
+                    INFINITY<span>PARTS</span>
+                </span>
+
+            </a>
+
+
+            <!-- BUSCA -->
+
+            <div class="search-wrapper">
+
+                <form class="search-form"
+                      id="search-form"
+                      role="search">
+
+                    <input type="text"
+                           id="search-input"
+                           placeholder="Buscar peças, marcas ou modelos..."
+                           aria-label="Buscar produtos"
+                           autocomplete="off">
+
+                    <button type="submit"
+                            aria-label="Buscar">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                </form>
+
+                <div class="search-suggestions"
+                     id="search-suggestions"></div>
+
+            </div>
+
+
+            <!-- AÇÕES DO HEADER -->
+
+            <div class="header-actions">
+
+                <!-- CONTA -->
+
+                <a href="login.html"
+                   class="header-action"
+                   id="header-account">
+
+                    <i class="bi bi-person"></i>
+
+                    <span id="header-account-text">
+                        Conta
+                    </span>
+
+                </a>
+
+
+                <!-- FAVORITOS -->
+
+                <a href="favoritos.html"
+                   class="header-action">
+
+                    <i class="bi bi-heart"></i>
+
+                    <span>
+                        Favoritos
+                    </span>
+
+                    <span class="action-badge"
+                          id="fav-count">
+                        0
+                    </span>
+
+                </a>
+
+
+                <!-- CARRINHO -->
+
+                <a href="carrinho.html"
+                   class="header-action">
+
+                    <i class="bi bi-cart3"></i>
+
+                    <span>
+                        Carrinho
+                    </span>
+
+                    <span class="action-badge"
+                          id="cart-count">
+                        0
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =======================================================
+             NAVEGAÇÃO
+        ======================================================== -->
+
+        <nav class="main-nav-bar">
+
+            <div class="container">
+
+                <ul class="main-nav"
+                    id="main-nav">
+
+                    <li>
+                        <a href="index.html"
+                           class="active">
+                            Início
+                        </a>
+                    </li>
+
+
+                    <li class="has-dropdown">
+
+                        <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo">
+
+                            Hardware
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo">
+                                    Placas de Vídeo
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Processador">
+                                    Processadores
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Placa-m%C3%A3e">
+                                    Placas-mãe
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Mem%C3%B3ria%20RAM">
+                                    Memórias RAM
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=SSD">
+                                    SSD
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Fonte">
+                                    Fontes
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li class="has-dropdown">
+
+                        <a href="produtos.html?categoria=Teclado">
+
+                            Periféricos
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="produtos.html?categoria=Teclado">
+                                    Teclados
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Mouse">
+                                    Mouses
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Headset">
+                                    Headsets
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="produtos.html?categoria=Monitor">
+                                    Monitores
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="produtos.html">
+                            PC Gamer
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="produtos.html?categoria=Cabos%20e%20Adaptadores">
+                            Acessórios
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="produtos.html">
+                            Ofertas
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="suporte.html">
+                            Suporte
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================================
+         CONTEÚDO PRINCIPAL
+    ========================================================= -->
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero-carousel"
+                 id="hero-carousel">
+
+            <div class="hero-carousel-track"
+                 id="hero-carousel-track">
+
+                <a href="produtos.html"
+                   class="hero-slide"
+                   aria-label="Ver cupons de desconto">
+
+                    <img src="assets/banners/banner-cupons.jpg"
+                         alt="Cupons de desconto — mais economia para o seu setup">
+
+                </a>
+
+
+                <a href="produtos.html"
+                   class="hero-slide"
+                   aria-label="Ver produtos de qualidade e desempenho">
+
+                    <img src="assets/banners/banner-qualidade.jpg"
+                         alt="Qualidade e desempenho — as melhores peças para o seu PC">
+
+                </a>
+
+
+                <a href="produtos.html"
+                   class="hero-slide"
+                   aria-label="Ver produtos para montar seu setup">
+
+                    <img src="assets/banners/banner-monte-setup.jpg"
+                         alt="Monte seu setup, eleve seu desempenho">
+
+                </a>
+
+            </div>
+
+
+            <button class="hero-carousel-nav hero-carousel-prev"
+                    id="hero-prev"
+                    aria-label="Banner anterior">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+
+            <button class="hero-carousel-nav hero-carousel-next"
+                    id="hero-next"
+                    aria-label="Próximo banner">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+
+            <div class="hero-carousel-dots"
+                 id="hero-dots"></div>
+
+        </section>
+
+
+        <!-- BANNERS -->
+
+        <section class="section-tight">
+
+            <div class="container">
+
+                <div class="banners-grid">
+
+                    <div class="banner-card">
+
+                        <i class="bi bi-cpu banner-icon"></i>
+
+                        <h3>
+                            Hardware
+                        </h3>
+
+                        <p>
+                            Potência para seu PC
+                        </p>
+
+                        <a href="produtos.html?categoria=Processador"
+                           class="btn btn-outline btn-sm">
+                            Explorar Hardware
+                        </a>
+
+                    </div>
+
+
+                    <div class="banner-card">
+
+                        <i class="bi bi-keyboard banner-icon"></i>
+
+                        <h3>
+                            Periféricos
+                        </h3>
+
+                        <p>
+                            Seu setup começa aqui
+                        </p>
+
+                        <a href="produtos.html?categoria=Teclado"
+                           class="btn btn-outline btn-sm">
+                            Ver Periféricos
+                        </a>
+
+                    </div>
+
+
+                    <div class="banner-card banner-red">
+
+                        <i class="bi bi-percent banner-icon"></i>
+
+                        <h3>
+                            Ofertas
+                        </h3>
+
+                        <p>
+                            Até 40% OFF
+                        </p>
+
+                        <a href="produtos.html"
+                           class="btn btn-primary btn-sm">
+                            Ver Ofertas
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIAS -->
+
+        <section class="section reveal">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Encontre o que você precisa
+                </h2>
+
+
+                <div class="categories-grid">
+
+                    <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo" class="category-card">
+                        <i class="bi bi-gpu-card"></i>
+                        <span>Placa de Vídeo</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Processador" class="category-card">
+                        <i class="bi bi-cpu"></i>
+                        <span>Processadores</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Placa-m%C3%A3e" class="category-card">
+                        <i class="bi bi-motherboard"></i>
+                        <span>Placas-mãe</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Mem%C3%B3ria%20RAM" class="category-card">
+                        <i class="bi bi-memory"></i>
+                        <span>Memórias RAM</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=SSD" class="category-card">
+                        <i class="bi bi-device-ssd"></i>
+                        <span>SSD</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=HD" class="category-card">
+                        <i class="bi bi-hdd"></i>
+                        <span>HD</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Fonte" class="category-card">
+                        <i class="bi bi-plug"></i>
+                        <span>Fontes</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Gabinete" class="category-card">
+                        <i class="bi bi-pc-display"></i>
+                        <span>Gabinetes</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Cooler" class="category-card">
+                        <i class="bi bi-snow"></i>
+                        <span>Coolers</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Fan" class="category-card">
+                        <i class="bi bi-fan"></i>
+                        <span>Fans</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Teclado" class="category-card">
+                        <i class="bi bi-keyboard"></i>
+                        <span>Teclados</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Mouse" class="category-card">
+                        <i class="bi bi-mouse2"></i>
+                        <span>Mouses</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Headset" class="category-card">
+                        <i class="bi bi-headset"></i>
+                        <span>Headsets</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Monitor" class="category-card">
+                        <i class="bi bi-display"></i>
+                        <span>Monitores</span>
+                    </a>
+
+                    <a href="produtos.html?categoria=Cabos%20e%20Adaptadores" class="category-card">
+                        <i class="bi bi-usb-plug"></i>
+                        <span>Cabos e Adaptadores</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DESTAQUES -->
+
+        <section class="section reveal">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Destaques da Infinity
+                </h2>
+
+                <p class="section-sub">
+                    Seleção com os produtos mais bem avaliados e em estoque agora.
+                </p>
+
+                <div class="products-grid"
+                     id="featured-grid"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PCS MONTADOS -->
+
+        <section class="section reveal"
+                 style="background: var(--c-black-2); border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border);">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    PCs Montados
+                </h2>
+
+                <p class="section-sub">
+                    Configurações completas, montadas e testadas pela nossa equipe. Escolha a sua e comece a jogar.
+                </p>
+
+
+                <div class="pc-carousel-wrapper">
+
+                    <button class="carousel-nav carousel-prev"
+                            id="pc-carousel-prev"
+                            aria-label="Anterior">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+
+
+                    <div class="pc-carousel"
+                         id="pc-carousel"></div>
+
+
+                    <button class="carousel-nav carousel-next"
+                            id="pc-carousel-next"
+                            aria-label="Próximo">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- POR QUE COMPRAR -->
+
+        <section class="section reveal">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Por que comprar na Infinity Parts?
+                </h2>
+
+
+                <div class="why-grid">
+
+                    <div class="why-card">
+                        <i class="bi bi-shield-check"></i>
+                        <h4>Compra Segura</h4>
+                        <p>Seus dados protegidos.</p>
+                    </div>
+
+                    <div class="why-card">
+                        <i class="bi bi-truck"></i>
+                        <h4>Envio Rápido</h4>
+                        <p>Postagem ágil para todo o Brasil.</p>
+                    </div>
+
+                    <div class="why-card">
+                        <i class="bi bi-award"></i>
+                        <h4>Produtos Selecionados</h4>
+                        <p>Hardware escolhido para entregar qualidade.</p>
+                    </div>
+
+                    <div class="why-card">
+                        <i class="bi bi-headset"></i>
+                        <h4>Suporte Especializado</h4>
+                        <p>Ajuda para encontrar o componente ideal.</p>
+                    </div>
+
+                    <div class="why-card">
+                        <i class="bi bi-patch-check"></i>
+                        <h4>Garantia</h4>
+                        <p>Mais segurança na sua compra.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-grid">
+
+            <div class="footer-col footer-brand">
+
+                <a href="index.html"
+                   class="logo">
+
+                    <img src="assets/icons/logo-infinity.png"
+                         alt="Infinity Parts"
+                         class="logo-mark">
+
+                    <span class="logo-text">
+                        INFINITY<span>PARTS</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Componentes selecionados para quem exige desempenho. Hardware, periféricos e acessórios com identidade própria.
+                </p>
+
+                <div class="footer-socials">
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a href="#" aria-label="TikTok">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                    <a href="#" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+
+                    <a href="#" aria-label="GitHub">
+                        <i class="bi bi-github"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>
+                    Infinity Parts
+                </h5>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            Sobre nós
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Nossa história
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="suporte.html">
+                            Contato
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>
+                    Atendimento
+                </h5>
+
+                <ul>
+
+                    <li>
+                        <a href="suporte.html">
+                            Fale conosco
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="suporte.html">
+                            Suporte
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Garantia
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Trocas e devoluções
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>
+                    Compras
+                </h5>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            Como comprar
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Formas de pagamento
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Frete
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Política de entrega
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h5>
+                    Institucional
+                </h5>
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            Termos de uso
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Política de privacidade
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Política de cookies
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <span>
+
+                &copy;
+
+                <span class="current-year">
+                    2026
+                </span>
+
+                Infinity Parts.
+                Todos os direitos reservados.
+
+            </span>
+
+
+            <div class="footer-payments">
+
+                <i class="bi bi-credit-card"></i>
+
+                <i class="bi bi-pix"></i>
+
+                <i class="bi bi-upc-scan"></i>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         TEMA
+    ========================================================= -->
+
+    <button class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Alternar tema claro/escuro"
+            title="Alternar tema claro/escuro">
+
+        <span class="theme-track">
+
+            <i class="bi bi-sun-fill theme-icon-sun"></i>
+
+            <i class="bi bi-moon-stars-fill theme-icon-moon"></i>
+
+            <span class="theme-thumb"></span>
+
+        </span>
+
+    </button>
+
+
+    <!-- =========================================================
+         WHATSAPP
+    ========================================================= -->
+
+    <button class="whatsapp-float"
+            id="whatsapp-btn"
+            aria-label="Falar no WhatsApp">
+
+        <i class="bi bi-whatsapp"></i>
+
+    </button>
+
+
+    <!-- =========================================================
+         SCRIPTS
+    ========================================================= -->
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <!-- =========================================================
+         CONTROLE DO HEADER DA CONTA
+    ========================================================= -->
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+            const accountLink =
+                document.getElementById('header-account');
+
+            const accountText =
+                document.getElementById('header-account-text');
+
+            const accountIcon =
+                accountLink?.querySelector('i');
+
+            const topAccountLink =
+                document.getElementById('top-account-link');
+
+            if (!accountLink || !accountText) {
+                return;
+            }
+
+            function atualizarHeaderConta() {
+
+                let usuario = null;
+
+                try {
+
+                    const dados =
+                        localStorage.getItem('ip_user');
+
+                    if (dados) {
+                        usuario = JSON.parse(dados);
+                    }
+
+                } catch (e) {
+
+                    usuario = null;
+
+                }
+
+                /*
+                 * USUÁRIO LOGADO
+                 */
+
+                if (usuario && usuario.id) {
+
+                    accountLink.href =
+                        'minha-conta.html';
+
+                    accountText.textContent =
+                        'Minha Conta';
+
+                    if (accountIcon) {
+                        accountIcon.className =
+                            'bi bi-person-check';
+                    }
+
+                    let logoutLink =
+                        document.getElementById('header-logout');
+
+                    if (!logoutLink) {
+
+                        logoutLink =
+                            document.createElement('a');
+
+                        logoutLink.href = '#';
+
+                        logoutLink.id =
+                            'header-logout';
+
+                        logoutLink.className =
+                            'header-action';
+
+                        logoutLink.innerHTML = `
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sair</span>
+                        `;
+
+                        logoutLink.addEventListener(
+                            'click',
+                            function (e) {
+
+                                e.preventDefault();
+
+                                localStorage.removeItem('ip_user');
+
+                                atualizarHeaderConta();
+
+                                window.location.href =
+                                    'index.html';
+
+                            }
+                        );
+
+                        accountLink.parentNode.insertBefore(
+                            logoutLink,
+                            accountLink.nextSibling
+                        );
+                    }
+
+                    if (topAccountLink) {
+
+                        topAccountLink.href =
+                            'minha-conta.html';
+
+                        topAccountLink.textContent =
+                            'Minha Conta';
+
+                    }
+
+                }
+
+                /*
+                 * USUÁRIO DESLOGADO
+                 */
+
+                else {
+
+                    accountLink.href =
+                        'login.html';
+
+                    accountText.textContent =
+                        'Conta';
+
+                    if (accountIcon) {
+                        accountIcon.className =
+                            'bi bi-person';
+                    }
+
+                    const logoutLink =
+                        document.getElementById(
+                            'header-logout'
+                        );
+
+                    if (logoutLink) {
+                        logoutLink.remove();
+                    }
+
+                    if (topAccountLink) {
+
+                        topAccountLink.href =
+                            'login.html';
+
+                        topAccountLink.textContent =
+                            'Minha Conta';
+
+                    }
+
+                }
+            }
+
+            atualizarHeaderConta();
+
+            window.addEventListener(
+                'storage',
+                function (event) {
+
+                    if (event.key === 'ip_user') {
+                        atualizarHeaderConta();
+                    }
+
+                }
+            );
+
+});
+
+    </script>
+
+</body>
+
+</html>

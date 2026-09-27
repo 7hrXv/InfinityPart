@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Produto\" />
+    <Compile Remove="wwwroot\css\**" />
+    <Compile Remove="wwwroot\js\js\**" />
+    <Content Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\js\js\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\js\js\**" />
+    <None Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\js\js\**" />
   </ItemGroup>
 
 </Project>
