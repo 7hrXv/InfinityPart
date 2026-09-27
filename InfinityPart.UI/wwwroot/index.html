@@ -6,18 +6,18 @@
     <meta charset="UTF-8">
 
     <script>
-(function(){
-                  try {
-                    var t = localStorage.getItem('ip_theme');
+                (function () {
+                    try {
+                        var t = localStorage.getItem('ip_theme');
 
-                    if(t === 'light'){
-                      document.documentElement.setAttribute(
-                        'data-theme',
-                        'light'
-                      );
-                    }
-                  } catch(e){}
-})();
+                        if (t === 'light') {
+                            document.documentElement.setAttribute(
+                                'data-theme',
+                                'light'
+                            );
+                        }
+                    } catch (e) { }
+                })();
     </script>
 
     <meta name="viewport"
@@ -61,6 +61,8 @@
 
     <link rel="stylesheet"
           href="css/responsive.css">
+
+   
 
 </head>
 
@@ -517,77 +519,92 @@
 
                 <div class="categories-grid">
 
-                    <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo" class="category-card">
+                    <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo"
+                       class="category-card">
                         <i class="bi bi-gpu-card"></i>
                         <span>Placa de Vídeo</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Processador" class="category-card">
+                    <a href="produtos.html?categoria=Processador"
+                       class="category-card">
                         <i class="bi bi-cpu"></i>
                         <span>Processadores</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Placa-m%C3%A3e" class="category-card">
+                    <a href="produtos.html?categoria=Placa-m%C3%A3e"
+                       class="category-card">
                         <i class="bi bi-motherboard"></i>
                         <span>Placas-mãe</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Mem%C3%B3ria%20RAM" class="category-card">
+                    <a href="produtos.html?categoria=Mem%C3%B3ria%20RAM"
+                       class="category-card">
                         <i class="bi bi-memory"></i>
                         <span>Memórias RAM</span>
                     </a>
 
-                    <a href="produtos.html?categoria=SSD" class="category-card">
+                    <a href="produtos.html?categoria=SSD"
+                       class="category-card">
                         <i class="bi bi-device-ssd"></i>
                         <span>SSD</span>
                     </a>
 
-                    <a href="produtos.html?categoria=HD" class="category-card">
+                    <a href="produtos.html?categoria=HD"
+                       class="category-card">
                         <i class="bi bi-hdd"></i>
                         <span>HD</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Fonte" class="category-card">
+                    <a href="produtos.html?categoria=Fonte"
+                       class="category-card">
                         <i class="bi bi-plug"></i>
                         <span>Fontes</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Gabinete" class="category-card">
+                    <a href="produtos.html?categoria=Gabinete"
+                       class="category-card">
                         <i class="bi bi-pc-display"></i>
                         <span>Gabinetes</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Cooler" class="category-card">
+                    <a href="produtos.html?categoria=Cooler"
+                       class="category-card">
                         <i class="bi bi-snow"></i>
                         <span>Coolers</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Fan" class="category-card">
+                    <a href="produtos.html?categoria=Fan"
+                       class="category-card">
                         <i class="bi bi-fan"></i>
                         <span>Fans</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Teclado" class="category-card">
+                    <a href="produtos.html?categoria=Teclado"
+                       class="category-card">
                         <i class="bi bi-keyboard"></i>
                         <span>Teclados</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Mouse" class="category-card">
+                    <a href="produtos.html?categoria=Mouse"
+                       class="category-card">
                         <i class="bi bi-mouse2"></i>
                         <span>Mouses</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Headset" class="category-card">
+                    <a href="produtos.html?categoria=Headset"
+                       class="category-card">
                         <i class="bi bi-headset"></i>
                         <span>Headsets</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Monitor" class="category-card">
+                    <a href="produtos.html?categoria=Monitor"
+                       class="category-card">
                         <i class="bi bi-display"></i>
                         <span>Monitores</span>
                     </a>
 
-                    <a href="produtos.html?categoria=Cabos%20e%20Adaptadores" class="category-card">
+                    <a href="produtos.html?categoria=Cabos%20e%20Adaptadores"
+                       class="category-card">
                         <i class="bi bi-usb-plug"></i>
                         <span>Cabos e Adaptadores</span>
                     </a>
@@ -976,178 +993,7 @@
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/main.js"></script>
-
-
-    <!-- =========================================================
-         CONTROLE DO HEADER DA CONTA
-    ========================================================= -->
-
-    <script>
-
-document.addEventListener('DOMContentLoaded', function () {
-
-            const accountLink =
-                document.getElementById('header-account');
-
-            const accountText =
-                document.getElementById('header-account-text');
-
-            const accountIcon =
-                accountLink?.querySelector('i');
-
-            const topAccountLink =
-                document.getElementById('top-account-link');
-
-            if (!accountLink || !accountText) {
-                return;
-            }
-
-            function atualizarHeaderConta() {
-
-                let usuario = null;
-
-                try {
-
-                    const dados =
-                        localStorage.getItem('ip_user');
-
-                    if (dados) {
-                        usuario = JSON.parse(dados);
-                    }
-
-                } catch (e) {
-
-                    usuario = null;
-
-                }
-
-                /*
-                 * USUÁRIO LOGADO
-                 */
-
-                if (usuario && usuario.id) {
-
-                    accountLink.href =
-                        'minha-conta.html';
-
-                    accountText.textContent =
-                        'Minha Conta';
-
-                    if (accountIcon) {
-                        accountIcon.className =
-                            'bi bi-person-check';
-                    }
-
-                    let logoutLink =
-                        document.getElementById('header-logout');
-
-                    if (!logoutLink) {
-
-                        logoutLink =
-                            document.createElement('a');
-
-                        logoutLink.href = '#';
-
-                        logoutLink.id =
-                            'header-logout';
-
-                        logoutLink.className =
-                            'header-action';
-
-                        logoutLink.innerHTML = `
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Sair</span>
-                        `;
-
-                        logoutLink.addEventListener(
-                            'click',
-                            function (e) {
-
-                                e.preventDefault();
-
-                                localStorage.removeItem('ip_user');
-
-                                atualizarHeaderConta();
-
-                                window.location.href =
-                                    'index.html';
-
-                            }
-                        );
-
-                        accountLink.parentNode.insertBefore(
-                            logoutLink,
-                            accountLink.nextSibling
-                        );
-                    }
-
-                    if (topAccountLink) {
-
-                        topAccountLink.href =
-                            'minha-conta.html';
-
-                        topAccountLink.textContent =
-                            'Minha Conta';
-
-                    }
-
-                }
-
-                /*
-                 * USUÁRIO DESLOGADO
-                 */
-
-                else {
-
-                    accountLink.href =
-                        'login.html';
-
-                    accountText.textContent =
-                        'Conta';
-
-                    if (accountIcon) {
-                        accountIcon.className =
-                            'bi bi-person';
-                    }
-
-                    const logoutLink =
-                        document.getElementById(
-                            'header-logout'
-                        );
-
-                    if (logoutLink) {
-                        logoutLink.remove();
-                    }
-
-                    if (topAccountLink) {
-
-                        topAccountLink.href =
-                            'login.html';
-
-                        topAccountLink.textContent =
-                            'Minha Conta';
-
-                    }
-
-                }
-            }
-
-            atualizarHeaderConta();
-
-            window.addEventListener(
-                'storage',
-                function (event) {
-
-                    if (event.key === 'ip_user') {
-                        atualizarHeaderConta();
-                    }
-
-                }
-            );
-
-});
-
-    </script>
+    <script src="js/account.js"></script>
 
 </body>
 

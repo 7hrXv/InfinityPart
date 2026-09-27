@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <script>
@@ -10,9 +11,12 @@
                         var theme = localStorage.getItem('ip_theme');
 
                         if (theme === 'light') {
-                            document.documentElement.setAttribute('data-theme', 'light');
+                            document.documentElement.setAttribute(
+                                'data-theme',
+                                'light'
+                            );
                         }
-                    } catch (e) {}
+                    } catch (e) { }
                 })();
     </script>
 
@@ -28,7 +32,8 @@
           href="assets/icons/favicon-256.png"
           type="image/png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet">
@@ -36,34 +41,54 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <link rel="stylesheet"
+          href="css/components.css">
+
+    <link rel="stylesheet"
+          href="css/responsive.css">
+
 </head>
 
+
 <body>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
 
     <header class="site-header">
 
         <div class="container header-main">
 
+
             <button class="menu-toggle"
                     id="menu-toggle"
                     aria-label="Abrir menu">
+
                 <i class="bi bi-list"></i>
+
             </button>
 
-            <a href="index.html" class="logo">
+
+            <a href="index.html"
+               class="logo">
 
                 <img src="assets/icons/logo-infinity.png"
                      alt="Infinity Parts"
                      class="logo-mark">
 
                 <span class="logo-text">
+
                     INFINITY<span>PARTS</span>
+
                 </span>
 
             </a>
+
 
             <div class="search-wrapper">
 
@@ -79,49 +104,80 @@
 
                     <button type="submit"
                             aria-label="Buscar">
+
                         <i class="bi bi-search"></i>
+
                     </button>
 
                 </form>
 
+
                 <div class="search-suggestions"
-                     id="search-suggestions"></div>
+                     id="search-suggestions">
+                </div>
 
             </div>
 
+
             <div class="header-actions">
 
+
                 <a href="login.html"
-                   class="header-action">
-                    <i class="bi bi-person"></i>
-                    <span>Conta</span>
+                   class="header-action"
+                   id="header-account">
+
+                    <i class="bi bi-person"
+                       id="header-account-icon"></i>
+
+                    <span id="header-account-text">
+                        Conta
+                    </span>
+
                 </a>
+
 
                 <a href="favoritos.html"
                    class="header-action">
+
                     <i class="bi bi-heart"></i>
-                    <span>Favoritos</span>
+
+                    <span>
+                        Favoritos
+                    </span>
 
                     <span class="action-badge"
                           id="fav-count">
+
                         0
+
                     </span>
+
                 </a>
+
 
                 <a href="carrinho.html"
                    class="header-action">
+
                     <i class="bi bi-cart3"></i>
-                    <span>Carrinho</span>
+
+                    <span>
+                        Carrinho
+                    </span>
 
                     <span class="action-badge"
                           id="cart-count">
+
                         0
+
                     </span>
+
                 </a>
+
 
             </div>
 
         </div>
+
 
         <nav class="main-nav-bar">
 
@@ -130,47 +186,69 @@
                 <ul class="main-nav"
                     id="main-nav">
 
+
                     <li>
+
                         <a href="index.html">
                             Início
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="produtos.html?categoria=Placa%20de%20V%C3%ADdeo">
                             Hardware
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="produtos.html?categoria=Teclado">
                             Periféricos
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="produtos.html">
                             PC Gamer
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="produtos.html?categoria=Cabos%20e%20Adaptadores">
                             Acessórios
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="produtos.html">
                             Ofertas
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="suporte.html">
                             Suporte
                         </a>
+
                     </li>
+
 
                 </ul>
 
@@ -181,10 +259,18 @@
     </header>
 
 
+
+    <!-- =========================================================
+         CONTEÚDO
+         ========================================================= -->
+
     <main>
 
         <div class="container"
              style="padding: 30px 0 70px;">
+
+
+            <!-- BREADCRUMB -->
 
             <nav class="breadcrumb">
 
@@ -192,7 +278,9 @@
                     Início
                 </a>
 
-                <span class="sep">/</span>
+                <span class="sep">
+                    /
+                </span>
 
                 <span class="current">
                     Minha Conta
@@ -201,99 +289,156 @@
             </nav>
 
 
+
+            <!-- SAUDAÇÃO -->
+
             <h1 class="account-greeting"
                 id="account-greeting">
+
                 Olá!
+
             </h1>
+
 
 
             <div class="account-layout">
 
+
+                <!-- =================================================
+                     MENU DA CONTA
+                     ================================================= -->
+
                 <nav class="account-menu">
+
 
                     <a href="#"
                        data-panel="panel-pedidos"
                        class="active">
+
                         <i class="bi bi-box-seam"></i>
+
                         Meus Pedidos
+
                     </a>
+
 
                     <a href="#"
                        data-panel="panel-dados">
+
                         <i class="bi bi-person-badge"></i>
+
                         Dados Pessoais
+
                     </a>
+
 
                     <a href="#"
                        data-panel="panel-enderecos">
+
                         <i class="bi bi-geo-alt"></i>
+
                         Endereços
+
                     </a>
+
 
                     <a href="favoritos.html">
 
                         <i class="bi bi-heart"></i>
+
                         Favoritos
 
                     </a>
 
+
                     <a href="#"
                        data-panel="panel-seguranca">
+
                         <i class="bi bi-shield-lock"></i>
+
                         Segurança
+
                     </a>
+
 
                     <a href="#"
                        id="logout-btn">
+
                         <i class="bi bi-box-arrow-right"></i>
+
                         Sair
+
                     </a>
+
 
                 </nav>
 
 
+
+                <!-- =================================================
+                     CONTEÚDO DOS PAINÉIS
+                     ================================================= -->
+
                 <div class="account-content">
 
 
-                    <!-- PEDIDOS -->
+                    <!-- =============================================
+                         PEDIDOS
+                         ============================================= -->
 
                     <div class="account-panel active"
                          id="panel-pedidos">
 
+
                         <h3 style="
                             text-transform:uppercase;
                             font-size:16px;
                             margin-bottom:16px;
                         ">
+
                             Pedidos recentes
+
                         </h3>
+
 
                         <div id="orders-list">
 
                             <div class="loading-state">
+
                                 <i class="bi bi-arrow-repeat spin"></i>
+
                                 Carregando pedidos...
+
                             </div>
 
                         </div>
 
+
                     </div>
 
 
-                    <!-- DADOS PESSOAIS -->
+
+                    <!-- =============================================
+                         DADOS PESSOAIS
+                         ============================================= -->
 
                     <div class="account-panel"
                          id="panel-dados">
+
 
                         <h3 style="
                             text-transform:uppercase;
                             font-size:16px;
                             margin-bottom:16px;
                         ">
+
                             Dados pessoais
+
                         </h3>
 
+
                         <div class="form-row">
+
 
                             <div class="form-group">
 
@@ -307,6 +452,8 @@
 
                             </div>
 
+
+
                             <div class="form-group">
 
                                 <label for="account-email">
@@ -319,54 +466,77 @@
 
                             </div>
 
+
                         </div>
+
 
                         <button class="btn btn-primary"
                                 id="save-account-data"
                                 type="button">
+
                             SALVAR ALTERAÇÕES
+
                         </button>
+
 
                     </div>
 
 
-                    <!-- ENDEREÇOS -->
+
+                    <!-- =============================================
+                         ENDEREÇO
+                         ============================================= -->
 
                     <div class="account-panel"
                          id="panel-enderecos">
 
+
                         <h3 style="
                             text-transform:uppercase;
                             font-size:16px;
                             margin-bottom:16px;
                         ">
+
                             Endereço principal
+
                         </h3>
+
 
                         <div id="address-container">
 
                             <div class="loading-state">
+
                                 <i class="bi bi-arrow-repeat spin"></i>
+
                                 Carregando endereço...
+
                             </div>
 
                         </div>
 
+
                     </div>
 
 
-                    <!-- SEGURANÇA -->
+
+                    <!-- =============================================
+                         SEGURANÇA
+                         ============================================= -->
 
                     <div class="account-panel"
                          id="panel-seguranca">
+
 
                         <h3 style="
                             text-transform:uppercase;
                             font-size:16px;
                             margin-bottom:16px;
                         ">
+
                             Segurança
+
                         </h3>
+
 
                         <div class="form-group">
 
@@ -380,6 +550,7 @@
 
                         </div>
 
+
                         <div class="form-group">
 
                             <label for="new-password">
@@ -392,13 +563,18 @@
 
                         </div>
 
+
                         <button class="btn btn-primary"
                                 id="update-password"
                                 type="button">
+
                             ATUALIZAR SENHA
+
                         </button>
 
+
                     </div>
+
 
                 </div>
 
@@ -408,6 +584,11 @@
 
     </main>
 
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
 
     <footer class="site-footer">
 
@@ -432,10 +613,16 @@
     </footer>
 
 
+
+    <!-- =========================================================
+         BOTÃO DE TEMA
+         ========================================================= -->
+
     <button class="theme-toggle"
             id="theme-toggle"
             aria-label="Alternar tema claro/escuro"
             title="Alternar tema claro/escuro">
+
 
         <span class="theme-track">
 
@@ -447,8 +634,14 @@
 
         </span>
 
+
     </button>
 
+
+
+    <!-- =========================================================
+         WHATSAPP
+         ========================================================= -->
 
     <button class="whatsapp-float"
             id="whatsapp-btn"
@@ -459,71 +652,22 @@
     </button>
 
 
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
     <script src="js/products.js"></script>
+
     <script src="js/cart.js"></script>
+
     <script src="js/main.js"></script>
+
     <script src="js/account.js"></script>
 
-
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-            const menuLinks = document.querySelectorAll(
-                '.account-menu a[data-panel]'
-            );
-
-            const panels = document.querySelectorAll(
-                '.account-panel'
-            );
-
-
-            menuLinks.forEach(function (link) {
-
-                link.addEventListener('click', function (event) {
-
-                    event.preventDefault();
-
-                    const panelId = link.getAttribute('data-panel');
-
-                    if (!panelId) {
-                        return;
-                    }
-
-
-                    panels.forEach(function (panel) {
-
-                        panel.classList.remove('active');
-
-                    });
-
-
-                    menuLinks.forEach(function (menuLink) {
-
-                        menuLink.classList.remove('active');
-
-                    });
-
-
-                    const selectedPanel =
-                        document.getElementById(panelId);
-
-
-                    if (selectedPanel) {
-
-                        selectedPanel.classList.add('active');
-
-                    }
-
-
-                    link.classList.add('active');
-
-                });
-
-            });
-
-});
-    </script>
+    <script src="js/minha-conta.js"></script>
 
 
 </body>
+
 </html>
