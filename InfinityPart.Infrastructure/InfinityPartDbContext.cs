@@ -23,6 +23,7 @@ public class InfinityPartDbContext : DbContext
 
     public DbSet<Marca> Marcas { get; set; }
 
+    public DbSet<Categoria> Categorias { get; set; }
     public DbSet<StatusPedido> StatusPedidos { get; set; }
 
     public DbSet<Auditoria> Auditorias { get; set; }
@@ -149,6 +150,18 @@ public class InfinityPartDbContext : DbContext
             .Property(m => m.Cnpj)
             .HasMaxLength(18);
 
+        // =====================================================
+        // CATEGORIA
+        // =====================================================
+
+        modelBuilder.Entity<Categoria>()
+            .Property(c => c.Nome)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Categoria>()
+            .Property(c => c.Descricao)
+            .HasMaxLength(500);
 
         // =====================================================
         // PRODUTO
@@ -183,6 +196,15 @@ public class InfinityPartDbContext : DbContext
             .HasForeignKey(p => p.MarcaId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // =====================================================
+        // PRODUTO -> CATEGORIA
+        // =====================================================
+
+        modelBuilder.Entity<Produto>()
+            .HasOne(p => p.Categoria)
+            .WithMany(c => c.Produtos)
+            .HasForeignKey(p => p.CategoriaId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // =====================================================
         // STATUS DO PEDIDO

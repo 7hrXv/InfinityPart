@@ -1159,7 +1159,7 @@ function initWhatsapp() {
                 );
 
             window.open(
-                `https://wa.me/5511999999999?text=${msg}`,
+                `https://wa.me/5511945593034?text=${msg}`,
                 '_blank'
             );
 

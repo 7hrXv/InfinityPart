@@ -22,6 +22,11 @@ public class Produto
 
     public Marca? Marca { get; set; }
 
+    // Relacionamento com Categoria
+    public int? CategoriaId { get; set; }
+
+    public Categoria? Categoria { get; set; }
+
     // Relacionamento com os itens dos pedidos
     public ICollection<ItemPedido> ItensPedido { get; set; } = new List<ItemPedido>();
 }
