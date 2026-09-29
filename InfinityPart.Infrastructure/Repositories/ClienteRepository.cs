@@ -1,5 +1,6 @@
 ﻿using InfinittyPart.Domain.Entidades;
 using InfinittyPart.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace InfinityPart.Infrastructure.Repositories;
 
@@ -42,10 +43,10 @@ public class ClienteRepository : IClienteRepository
 
     public Cliente? ObterPorCpf(string cpf)
     {
-         return _context.Clientes
+        return _context.Clientes
             .FirstOrDefault(c => c.Cpf == cpf);
     }
-    
+
     public Cliente? ObterPorLogin(string identificador)
     {
         return _context.Clientes

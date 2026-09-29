@@ -84,7 +84,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // =====================================================
-// BUILD DA APLICAÇÃO
+// BUILD
 // =====================================================
 
 var app = builder.Build();
